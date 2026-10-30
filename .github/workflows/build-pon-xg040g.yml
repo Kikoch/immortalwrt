@@ -117,8 +117,22 @@ jobs:
             cat "pon-build/configs/$EXTRA_CONFIG" >> .config
           fi
           bash pon-build/scripts/set-build-version.sh .config
-          make defconfig
-          bash pon-build/scripts/check-config.sh
+          # 匿名访问拿不到 job 日志 (API 下载要求 admin), 网页日志又是异步渲染。
+          # 把失败输出用 ::error:: 写成 annotation —— 它会静态出现在 run 页面,
+          # 排障时不用登录也能读到根因。
+          if ! make defconfig > defconfig.log 2>&1; then
+            tail -40 defconfig.log
+            printf '::error::make defconfig 失败:: %s\n' \
+              "$(tail -25 defconfig.log | sed ':a;N;$!ba;s/\n/%0A/g')"
+            exit 2
+          fi
+          if ! bash pon-build/scripts/check-config.sh > check-config.log 2>&1; then
+            cat check-config.log
+            printf '::error::check-config 失败:: %s\n' \
+              "$(tail -25 check-config.log | sed ':a;N;$!ba;s/\n/%0A/g')"
+            exit 1
+          fi
+          cat check-config.log
 
       - name: 下载源码包
         run: make download -j"$(nproc)"
@@ -152,6 +166,9 @@ jobs:
           name: xg040gmd-${{ steps.ver.outputs.tag }}
           path: |
             build.log
+            defconfig.log
+            check-config.log
+            .config
             bin/targets/airoha/an7581/*.itb
             bin/targets/airoha/an7581/config.buildinfo
             bin/targets/airoha/an7581/feeds.buildinfo
