@@ -43,6 +43,7 @@ on:
       - "package/airoha-pon/**"
       - "pon-build/configs/**"
       - "pon-build/scripts/**"
+      - "pon-build/feeds.conf"
       - ".github/workflows/build-pon-xg040g.yml"
 
 env:
@@ -78,6 +79,13 @@ jobs:
         env:
           PIN_FEEDS: ${{ inputs.pin_feeds || 'yes' }}
         run: |
+          # scripts/feeds 的 parse_file 用 s/#.+$// 剥注释, 要求 # 后至少有一个字符。
+          # 孤立 # 剥不掉, 随后被当成配置项解析 -> die "Syntax error ...", exit 25。
+          # run #1 在 18 秒内就死在这里, 加断言让原因一眼可见。
+          if grep -nE '^\s*#\s*$' pon-build/feeds.conf; then
+            echo "FATAL: feeds.conf 含孤立 # 行, scripts/feeds 会以退出码 25 挂掉" >&2
+            exit 1
+          fi
           # feeds.conf 在上游 .gitignore 里, 所以固定清单放在 pon-build/ 下, 构建时拷到根目录
           if [ "$PIN_FEEDS" = "yes" ]; then
             cp pon-build/feeds.conf feeds.conf

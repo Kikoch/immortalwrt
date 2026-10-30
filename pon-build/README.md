@@ -145,6 +145,8 @@ reset-deassert-us = <20000>;
 
 特别提醒：`luci` 必须 pin 在 `ed0441b1`（2026-10-02 "Merge Official Source"）**或之后**。immortalwrt/luci 的 master 线在 2026-09 整段时间把约 64 个第三方 LuCI 应用拆了出去，那条线上 pin 的任何提交都没有 `luci-app-openclash`（applications 只有 103 项，merge 回来后是 167 项）。
 
+**⚠️ 孤立 `#` 行会让 `scripts/feeds` 以 25 退出。** 它的 `parse_file` 用 `s/#.+$//` 剥注释，要求 `#` 后面至少有一个字符；只有 `#` 的行剥不掉，随后被当成配置项解析，直接 die `Syntax error at line N`。2026-10-30 的 run #1 在 18 秒就死在这里（feeds.conf 第 2/5/10 行）。已全部改成 `# ----`，并在 workflow 的「安装 feeds」步骤开头加了硬断言，改动 feeds.conf 时不会再静默踩回去。另外 `pon-build/feeds.conf` 已加进 workflow 的 push `paths`，改它也会自动触发构建。
+
 ## 参考
 
 - <https://github.com/immortalwrt/immortalwrt> — 本仓库的上游
