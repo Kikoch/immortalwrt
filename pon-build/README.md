@@ -152,6 +152,21 @@ reset-deassert-us = <20000>;
 
 **⚠️ 孤立 `#` 行会让 `scripts/feeds` 以 25 退出。** 它的 `parse_file` 用 `s/#.+$//` 剥注释，要求 `#` 后面至少有一个字符；只有 `#` 的行剥不掉，随后被当成配置项解析，直接 die `Syntax error at line N`。2026-10-30 的 run #1 在 18 秒就死在这里（feeds.conf 第 2/5/10 行）。已全部改成 `# ----`，并在 workflow 的「安装 feeds」步骤开头加了硬断言，改动 feeds.conf 时不会再静默踩回去。另外 `pon-build/feeds.conf` 已加进 workflow 的 push `paths`，改它也会自动触发构建。
 
+## 云编译排障记录（2026-10-30，push 自动触发）
+
+前四次 run 全部死在编译开始之前，逐个修掉：
+
+| run | 耗时 | 症状 | 根因 / 修法 |
+|---|---|---|---|
+| #1 `41079509601` | 21s | 安装 feeds，exit 25 | `feeds.conf` 有孤立 `#` 行 → 改 `# ----`，步骤开头加硬断言 |
+| #2 `41079854866` | 1m41s | 组装 .config，exit 2 | 日志拿不到（API 要 admin、网页异步渲染）→ 先加 `::error::` annotation 诊断 |
+| #3 `41081840375` | 1m50s | 同上 | annotation 拿到根因：`sane-backends` 与 `package/system/hardware-support` 的 `USERID:=:scanner=47` 撞组号，`prepare-tmpinfo` Error 1 → 构建期幂等删除该文件全部 USERID 行 |
+| #4 `41082369186` | 2m01s | check-config exit 1 | defconfig 已成功、17 项包断言全 OK，但 FATAL 被尾 25 行截断看不到 → 全量 annotation + 放宽设备符号断言 |
+
+**排障手段**：GitHub API 下载 job logs 对公开仓库也要求 admin 权限（403 *Must have admin rights*），网页日志是 JS 异步渲染抓不到文本。用 workflow command
+`printf '::error::<标题>:: %s\n' "$(sed ':a;N;$!ba;s/\n/%0A/g' xxx.log)"`
+把失败日志写成 annotation，是**匿名可读**的有效通道。别只贴 tail 25 行 —— 会把开头的 FATAL 截掉。
+
 ## 参考
 
 - <https://github.com/immortalwrt/immortalwrt> — 本仓库的上游
