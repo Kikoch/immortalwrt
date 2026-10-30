@@ -175,10 +175,24 @@ jobs:
 
       - name: 校验产物
         run: |
-          itb=$(ls bin/targets/airoha/an7581/*.itb | head -n1)
-          test -n "$itb"
+          set +e
+          echo "=== bin/targets/airoha/an7581/ 内容 ==="
+          ls -l bin/targets/airoha/an7581/ 2>&1 | tail -40
+          itb=$(ls bin/targets/airoha/an7581/*.itb 2>/dev/null | head -n1)
+          if [ -z "$itb" ]; then
+            printf '::error::没有生成 .itb:: %s\n' \
+              "$(ls -1 bin/targets/airoha/an7581/ 2>&1 | sed ':a;N;$!ba;s/\n/%0A/g')"
+            exit 1
+          fi
           echo "=== $itb ==="
-          python3 pon-build/scripts/verify-firmware.py "$itb"
+          python3 pon-build/scripts/verify-firmware.py "$itb" > verify.log 2>&1
+          rc=$?
+          cat verify.log
+          if [ "$rc" -ne 0 ]; then
+            printf '::error::verify-firmware 失败 (rc=%s):: %s\n' "$rc" \
+              "$(sed ':a;N;$!ba;s/\n/%0A/g' verify.log)"
+          fi
+          exit "$rc"
 
       - name: 上传产物
         if: always()
@@ -189,6 +203,7 @@ jobs:
             build.log
             defconfig.log
             check-config.log
+            verify.log
             .config
             bin/targets/airoha/an7581/*.itb
             bin/targets/airoha/an7581/config.buildinfo

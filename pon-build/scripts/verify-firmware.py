@@ -75,7 +75,11 @@ def main():
         return 2
     path = sys.argv[1]
     data = open(path, "rb").read()
-    tree = parse_fdt(data)
+    try:
+        tree = parse_fdt(data)
+    except Exception as e:
+        print("FATAL: ITB 解析失败: %s: %s" % (type(e).__name__, e))
+        return 1
     print("文件: %s (%d 字节)" % (path, len(data)))
 
     images = {k: v for k, v in tree.items()
@@ -99,24 +103,45 @@ def main():
 
     rc = 0
 
+    def image_blob(img):
+        # FIT 外部数据位置: 旧 mkimage 写 data-position (绝对文件偏移), 新版可能
+        # 写 data-offset。原来直接 img["data-position"], 属性一变就是 KeyError
+        # 崩溃退出 —— run #5 编译成功却在「校验产物」挂掉, 高度怀疑就是这里。
+        off = be32(img.get("data-position", b""))
+        if off is None:
+            off = be32(img.get("data-offset", b""))
+        size = be32(img.get("data-size", b""))
+        if off is None or size is None:
+            return None
+        return data[off:off + size]
+
     if kernel_img is None:
         print("WARN: 没有 kernel image")
     else:
-        off = be32(kernel_img["data-position"])
-        size = be32(kernel_img["data-size"])
-        blob = data[off:off + size]
-        if blob[:2] == b"\x1f\x8b":
-            blob = gzip.decompress(blob)
-        m = re.search(rb"Linux version [^\x00]{10,120}", blob)
-        print("内核: %s" % (m.group(0).decode("utf-8", "replace") if m else "(未找到版本串)"))
+        blob = image_blob(kernel_img)
+        if blob is None:
+            print("WARN: kernel image 缺少 data-position/data-size, 跳过内核版本读取")
+            print("      该 image 的属性: %s" % sorted(kernel_img.keys()))
+        else:
+            if blob[:2] == b"\x1f\x8b":
+                blob = gzip.decompress(blob)
+            m = re.search(rb"Linux version [^\x00]{10,120}", blob)
+            print("内核: %s" % (m.group(0).decode("utf-8", "replace") if m else "(未找到版本串)"))
 
     if fdt_img is None:
         print("FATAL: 没有 flat_dt image, 无法校验设备与时序")
         return 1
 
-    off = be32(fdt_img["data-position"])
-    size = be32(fdt_img["data-size"])
-    dtree = parse_fdt(data[off:off + size])
+    dtb = image_blob(fdt_img)
+    if dtb is None:
+        print("FATAL: flat_dt image 缺少 data-position/data-size")
+        print("      该 image 的属性: %s" % sorted(fdt_img.keys()))
+        return 1
+    try:
+        dtree = parse_fdt(dtb)
+    except Exception as e:
+        print("FATAL: DTB 解析失败: %s: %s" % (type(e).__name__, e))
+        return 1
 
     model_raw = dtree.get("/", {}).get("model", b"")
     model = model_raw.rstrip(b"\0").decode("utf-8", "replace")
