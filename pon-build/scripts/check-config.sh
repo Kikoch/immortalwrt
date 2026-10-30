@@ -16,17 +16,16 @@ note() { echo "  $*"; }
 bad()  { echo "FATAL: $*"; fail=1; }
 
 echo "=== 设备选择 ==="
-if grep -q '^CONFIG_TARGET_MULTI_PROFILE=y' "$CONFIG"; then
-	bad "CONFIG_TARGET_MULTI_PROFILE 仍为 y, 会把该 target 下全部设备都编一遍"
+# 新机制下 MULTI_PROFILE 必须开, 否则 "Target Devices" 菜单 depends on 它,
+# TARGET_DEVICE_* 会被 kconfig 裁掉 -> 编译完没有镜像 (run #5 实测)。
+grep -q '^CONFIG_TARGET_MULTI_PROFILE=y' "$CONFIG" \
+	|| bad "CONFIG_TARGET_MULTI_PROFILE 未启用 —— TARGET_DEVICE_* 会被整组裁掉, 编不出 itb"
+if grep -q '^CONFIG_TARGET_ALL_PROFILES=y' "$CONFIG"; then
+	bad "CONFIG_TARGET_ALL_PROFILES 仍为 y, 会把该 target 下全部设备都编一遍"
 fi
 grep -E '^CONFIG_TARGET.*DEVICE.*=y' "$CONFIG" | sed 's/^/  /' || bad "没有任何设备被选中"
-# 上游把 TARGET_DEVICE_* 改成了 menuconfig, defconfig 后未必保留
-# CONFIG_TARGET_DEVICE_... 这个符号; 只要 CONFIG_TARGET_<subtarget>_DEVICE_...
-# 还在就说明 profile 选对了 (per-device rootfs 未启用时 DEVICE_PACKAGES 仍由
-# select DEFAULT_$pkg 进固件, 见 scripts/target-metadata.pl:324)。
-if ! grep -qE "^CONFIG_TARGET_(DEVICE_)?airoha_an7581_DEVICE_${DEVICE}=y" "$CONFIG"; then
-	bad "目标设备 ${DEVICE} 没有被选中 (CONFIG_TARGET_*_DEVICE_${DEVICE} 都不在 .config)"
-fi
+grep -q "^CONFIG_TARGET_DEVICE_airoha_an7581_DEVICE_${DEVICE}=y" "$CONFIG" \
+	|| bad "目标设备 ${DEVICE} 没有被选中 (新机制下必须选中 TARGET_DEVICE_* 菜单项)"
 
 echo "=== PON 关键包 (缺一个就起不来 pon0) ==="
 for pkg in kmod-airoha-xpon kmod-airoha-pon-frontend kmod-airoha-en7572 \
