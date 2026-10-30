@@ -1,0 +1,150 @@
+name: Build XG-040G-MD (PON)
+
+# 本仓库就是 immortalwrt 源码树的 fork, 不需要再 clone 源码。
+# PON 相关的内容全部放在 pon-build/ 下, 与上游文件零重叠, 便于日后 rebase 上游。
+
+on:
+  workflow_dispatch:
+    inputs:
+      pin_feeds:
+        description: '用 pon-build/feeds.conf 里固定的 feed 提交 (可复现)'
+        required: true
+        default: 'yes'
+        type: choice
+        options: ['yes', 'no']
+      extra_config:
+        description: '附加包配置'
+        required: true
+        default: 'none'
+        type: choice
+        options: ['none', 'xg040g-extra.config']
+      pon_925:
+        description: '注入 925 (PON PPE 卸载元数据, 上游没有)'
+        required: true
+        default: 'no'
+        type: choice
+        options: ['no', 'yes']
+      release_type:
+        description: '发布方式'
+        required: true
+        default: 'none'
+        type: choice
+        options: ['none', 'release', 'prerelease']
+
+env:
+  DEVICE: nokia_xg-040g-md-ubi
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: 版本号
+        id: ver
+        run: |
+          build_date=$(TZ=Asia/Shanghai date +'%Y%m%d')
+          repo_commit=$(git rev-parse --short=8 HEAD)
+          echo "date=$build_date" >> $GITHUB_OUTPUT
+          echo "commit=$repo_commit" >> $GITHUB_OUTPUT
+          echo "tag=${build_date}-${repo_commit}" >> $GITHUB_OUTPUT
+
+      - name: 安装构建依赖
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential clang flex bison g++ gawk \
+            gcc-multilib g++-multilib gettext git libncurses-dev libssl-dev \
+            python3 python3-setuptools rsync swig unzip zlib1g-dev file wget \
+            xsltproc zstd
+
+      - name: 安装 feeds
+        run: |
+          # feeds.conf 在上游 .gitignore 里, 所以固定清单放在 pon-build/ 下, 构建时拷到根目录
+          if [ "${{ inputs.pin_feeds }}" = "yes" ]; then
+            cp pon-build/feeds.conf feeds.conf
+          else
+            sed 's/\^[0-9a-f]\{40\}$//' pon-build/feeds.conf > feeds.conf
+          fi
+          cat feeds.conf
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+
+      - name: 应用本地内核补丁
+        env:
+          SRC_DIR: ${{ github.workspace }}
+          REPO_DIR: ${{ github.workspace }}/pon-build
+          PON_925: ${{ inputs.pon_925 }}
+        run: bash pon-build/scripts/apply-local-patches.sh
+
+      - name: 组装 .config
+        env:
+          SRC_DIR: ${{ github.workspace }}
+          DEVICE_MODEL: XG-040G-MD
+          BUILD_DATE: ${{ steps.ver.outputs.date }}
+          REPO_COMMIT: ${{ steps.ver.outputs.commit }}
+          UPSTREAM_COMMIT: ${{ steps.ver.outputs.commit }}
+        run: |
+          cp pon-build/configs/xg040g.config .config
+          if [ "${{ inputs.extra_config }}" != "none" ]; then
+            cat "pon-build/configs/${{ inputs.extra_config }}" >> .config
+          fi
+          bash pon-build/scripts/set-build-version.sh .config
+          make defconfig
+          bash pon-build/scripts/check-config.sh
+
+      - name: 下载源码包
+        run: make download -j"$(nproc)"
+
+      - name: 编译
+        run: make -j"$(nproc)" world 2>&1 | tee build.log
+
+      - name: 失败时给详细日志
+        if: failure()
+        run: |
+          failed=$(grep -m1 'ERROR:.*failed to build' build.log \
+                   | sed 's/.*ERROR: \(.*\) failed to build.*/\1/' || true)
+          if [ -n "$failed" ]; then
+            echo "=== 重编 $failed (V=s) ==="
+            make "package/$failed/compile" V=s -j1 2>&1 | tail -120 || true
+          else
+            tail -150 build.log || true
+          fi
+
+      - name: 校验产物
+        run: |
+          itb=$(ls bin/targets/airoha/an7581/*.itb | head -n1)
+          test -n "$itb"
+          echo "=== $itb ==="
+          python3 pon-build/scripts/verify-firmware.py "$itb"
+
+      - name: 上传产物
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xg040gmd-${{ steps.ver.outputs.tag }}
+          path: |
+            build.log
+            bin/targets/airoha/an7581/*.itb
+            bin/targets/airoha/an7581/config.buildinfo
+            bin/targets/airoha/an7581/feeds.buildinfo
+            bin/targets/airoha/an7581/version.buildinfo
+            bin/targets/airoha/an7581/sha256sums
+          retention-days: 30
+
+      - name: 发布 Release
+        if: github.event.inputs.release_type != 'none'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          name: ${{ steps.ver.outputs.date }} - Nokia XG-040G-MD (${{ steps.ver.outputs.commit }})
+          prerelease: ${{ github.event.inputs.release_type == 'prerelease' }}
+          files: |
+            bin/targets/airoha/an7581/*.itb
+            bin/targets/airoha/an7581/config.buildinfo
+            bin/targets/airoha/an7581/feeds.buildinfo
+            bin/targets/airoha/an7581/sha256sums
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
