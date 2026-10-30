@@ -161,7 +161,8 @@ reset-deassert-us = <20000>;
 | #1 `41079509601` | 21s | 安装 feeds，exit 25 | `feeds.conf` 有孤立 `#` 行 → 改 `# ----`，步骤开头加硬断言 |
 | #2 `41079854866` | 1m41s | 组装 .config，exit 2 | 日志拿不到（API 要 admin、网页异步渲染）→ 先加 `::error::` annotation 诊断 |
 | #3 `41081840375` | 1m50s | 同上 | annotation 拿到根因：`sane-backends` 与 `package/system/hardware-support` 的 `USERID:=:scanner=47` 撞组号，`prepare-tmpinfo` Error 1 → 构建期幂等删除该文件全部 USERID 行 |
-| #4 `41082369186` | 2m01s | check-config exit 1 | defconfig 已成功、17 项包断言全 OK，但 FATAL 被尾 25 行截断看不到 → 全量 annotation + 放宽设备符号断言 |
+| #4 `41082369186` | 2m01s | check-config exit 1 | defconfig 已成功、17 项包断言全 OK，但 FATAL 被尾 25 行截断看不到 → 全量 annotation + 放宽设备符号断言（⚠️ 后来证明这个"放宽"掩盖了真问题，见 #5） |
+| #5 `41082911690` | 44m43s | 校验产物 exit 1 | **编译成功，但一个镜像都没产出**：`ls: cannot access 'bin/targets/airoha/an7581/*.itb'`。真因是 `scripts/target-metadata.pl` 里 `menu "Target Devices" depends on TARGET_MULTI_PROFILE`，种子把这开关关了 → 整个 `TARGET_DEVICE_*` 菜单被 kconfig 裁掉 → 没有设备被选中构建镜像 → 照 `pbs05/ponwrt/configs/an7581.config` 改成 `MULTI_PROFILE=y` + `TARGET_DEVICE_*_nokia_xg-040g-md-ubi=y`（run #7 `db7b3373b` 验证） |
 
 **排障手段**：GitHub API 下载 job logs 对公开仓库也要求 admin 权限（403 *Must have admin rights*），网页日志是 JS 异步渲染抓不到文本。用 workflow command
 `printf '::error::<标题>:: %s\n' "$(sed ':a;N;$!ba;s/\n/%0A/g' xxx.log)"`
