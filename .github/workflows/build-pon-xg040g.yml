@@ -96,6 +96,24 @@ jobs:
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
+      - name: 清理 hardware-support 的 USERID 组冲突
+        # 上游新增的 package/system/hardware-support 给 9 个 feature-gate 子包
+        # 声明了 USERID (含 :scanner=47), 与 pin 住的 feeds/packages/sane-backends
+        # 同名系统组撞车 -> `Failed to build tmp/.config-package.in`, make defconfig
+        # 在 prepare-tmpinfo 阶段直接 Error 1 (run #3 实测, exit 2)。
+        # 这些子包都没被选中, 清掉 USERID 行对产物无影响。
+        # 幂等: 上游修好后文件不存在或已无 USERID 行, 这里就是 no-op。
+        run: |
+          hw=package/system/hardware-support/Makefile
+          if [ -f "$hw" ]; then
+            before=$(grep -c 'USERID' "$hw" || true)
+            sed -i -E '/^[[:space:]]*USERID[[:space:]]*:=/d' "$hw"
+            after=$(grep -c 'USERID' "$hw" || true)
+            echo "hardware-support: USERID 行 $before -> $after"
+          else
+            echo "$hw 不存在 (上游可能已修复), 跳过"
+          fi
+
       - name: 应用本地内核补丁
         env:
           SRC_DIR: ${{ github.workspace }}

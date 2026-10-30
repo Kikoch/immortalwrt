@@ -3,6 +3,11 @@
 目标设备 `nokia,xg-040g-md-ubi`（Airoha AN7581）。PON 能力**已经移植进本仓库源码树**
 （`target/linux/airoha/` + `package/airoha-pon/`），不再依赖外部 feed。
 
+> **分支统一（2026-10-30）**：旧的 `pon-xg040g` 分支（"PON 当 feed 挂"的方案）已删除。
+> 它相对其基点只新增了 10 个文件（本 workflow + `pon-build/` 全部），在这里都有更新版，
+> 无内容丢失。旧 HEAD `57aa3894` 仍可按 SHA 恢复。现在只有 `master`（纯上游 89f1ef18）
+> 和 `pon-xg040g-inline`（本移植线）两个分支。
+
 和"直接编 PonWrt"的区别：内核补丁集仍以 immortalwrt 上游为主干，只把 PON 需要的那几个
 补丁按上游风格补进去；驱动与用户态包以源码形式收在 `package/airoha-pon/`，随仓库固定版本。
 
