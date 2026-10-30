@@ -159,7 +159,19 @@ jobs:
         run: make download -j"$(nproc)"
 
       - name: 编译
-        run: make -j"$(nproc)" world 2>&1 | tee build.log
+        run: |
+          # 之前是 `make world 2>&1 | tee build.log`, 管道让 make 的失败被 tee 的
+          # 退出码吞掉, 编译步骤永远显示 success, image 构建报错却看不到 (run #7 就是这样
+          # 被误导成"没产出镜像")。改用 PIPESTATUS 抓真实退出码。
+          make -j"$(nproc)" world 2>&1 | tee build.log
+          rc=${PIPESTATUS[0]}
+          if [ "$rc" -ne 0 ]; then
+            echo "=== make world 失败 (rc=$rc), build.log 关键错误 ==="
+            grep -iE "failed to build|Error 1|No rule to make|recipe for target .* failed|ERROR:|make\[[0-9]*\]: \*\*\*" build.log | tail -60
+            printf '::error::make world 失败 (rc=%s):: %s\n' "$rc" \
+              "$(grep -iE "failed to build|Error 1|No rule to make|recipe for target .* failed|ERROR:|make\[[0-9]*\]: \*\*\*" build.log | tail -40 | sed ':a;N;$!ba;s/\n/%0A/g')"
+            exit 1
+          fi
 
       - name: 失败时给详细日志
         if: failure()
@@ -180,6 +192,8 @@ jobs:
           ls -l bin/targets/airoha/an7581/ 2>&1 | tail -40
           itb=$(ls bin/targets/airoha/an7581/*.itb 2>/dev/null | head -n1)
           if [ -z "$itb" ]; then
+            echo "=== build.log 关键错误 (辅助定位) ==="
+            grep -iE "failed to build|Error 1|No rule to make|recipe for target .* failed|ERROR:" build.log 2>/dev/null | tail -30 || true
             printf '::error::没有生成 .itb:: %s\n' \
               "$(ls -1 bin/targets/airoha/an7581/ 2>&1 | sed ':a;N;$!ba;s/\n/%0A/g')"
             exit 1
