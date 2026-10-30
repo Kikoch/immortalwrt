@@ -23,13 +23,24 @@ grep -E '^CONFIG_TARGET.*DEVICE.*=y' "$CONFIG" | sed 's/^/  /' || bad "没有任
 grep -q "^CONFIG_TARGET_DEVICE_airoha_an7581_DEVICE_${DEVICE}=y" "$CONFIG" \
 	|| bad "目标设备 ${DEVICE} 没有被选中"
 
-echo "=== PON 关键包 (缺一个就不能拨号) ==="
-for pkg in kmod-airoha-xpon kmod-airoha-pon-frontend airoha-ponctl airoha-pond \
-           luci-app-pon fitblk; do
+echo "=== PON 关键包 (缺一个就起不来 pon0) ==="
+for pkg in kmod-airoha-xpon kmod-airoha-pon-frontend kmod-airoha-en7572 \
+           airoha-ponctl airoha-pond luci-app-pon airoha-en8811h-firmware fitblk; do
 	if grep -q "^CONFIG_PACKAGE_${pkg}=y" "$CONFIG"; then
 		note "OK   ${pkg}"
 	else
-		bad "${pkg} 不是 =y (feeds 里没这个包? 确认 scripts/feeds install -a 跑过)"
+		bad "${pkg} 不是 =y (源码树里没这个包? 确认 package/airoha-pon 被扫描到、feeds install -a 跑过)"
+	fi
+done
+
+echo "=== 附加包 (对齐 Openwrt-Actions 的 xg-040g-md 配置) ==="
+# 这几个是最容易被 defconfig 静默删掉的: 包不存在时编译照样 green, 刷完才发现没有。
+for pkg in luci-app-openclash luci-app-ddns ddns-scripts-dnspod \
+           luci-proto-wireguard zram-swap luci-app-iptv ruby-yaml; do
+	if grep -q "^CONFIG_PACKAGE_${pkg}=y" "$CONFIG"; then
+		note "OK   ${pkg}"
+	else
+		bad "${pkg} 不是 =y —— 检查 luci feed pin 与对应包是否存在"
 	fi
 done
 

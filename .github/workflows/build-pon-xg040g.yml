@@ -30,6 +30,20 @@ on:
         default: 'none'
         type: choice
         options: ['none', 'release', 'prerelease']
+  # push 触发: 改了 PON 实现或包配置就自动编一次, 不用手动点。
+  # ⚠️ inputs 上下文在 push 事件下是空的, 下面每个用到 inputs 的地方都必须
+  #    写成 `inputs.xxx || '默认值'`, 否则会走到 else 分支甚至 cat 一个目录。
+  #    默认分支是 master (纯上游), 本 workflow 只存在于 pon-xg040g-inline,
+  #    push 到该分支时用该分支上的这份文件触发。
+  push:
+    branches:
+      - pon-xg040g-inline
+    paths:
+      - "target/linux/airoha/**"
+      - "package/airoha-pon/**"
+      - "pon-build/configs/**"
+      - "pon-build/scripts/**"
+      - ".github/workflows/build-pon-xg040g.yml"
 
 env:
   DEVICE: nokia_xg-040g-md-ubi
@@ -61,9 +75,11 @@ jobs:
             xsltproc zstd
 
       - name: 安装 feeds
+        env:
+          PIN_FEEDS: ${{ inputs.pin_feeds || 'yes' }}
         run: |
           # feeds.conf 在上游 .gitignore 里, 所以固定清单放在 pon-build/ 下, 构建时拷到根目录
-          if [ "${{ inputs.pin_feeds }}" = "yes" ]; then
+          if [ "$PIN_FEEDS" = "yes" ]; then
             cp pon-build/feeds.conf feeds.conf
           else
             sed 's/\^[0-9a-f]\{40\}$//' pon-build/feeds.conf > feeds.conf
@@ -76,7 +92,7 @@ jobs:
         env:
           SRC_DIR: ${{ github.workspace }}
           REPO_DIR: ${{ github.workspace }}/pon-build
-          PON_925: ${{ inputs.pon_925 }}
+          PON_925: ${{ inputs.pon_925 || 'no' }}
         run: bash pon-build/scripts/apply-local-patches.sh
 
       - name: 组装 .config
@@ -86,10 +102,11 @@ jobs:
           BUILD_DATE: ${{ steps.ver.outputs.date }}
           REPO_COMMIT: ${{ steps.ver.outputs.commit }}
           UPSTREAM_COMMIT: ${{ steps.ver.outputs.commit }}
+          EXTRA_CONFIG: ${{ inputs.extra_config || 'xg040g-extra.config' }}
         run: |
           cp pon-build/configs/xg040g.config .config
-          if [ "${{ inputs.extra_config }}" != "none" ]; then
-            cat "pon-build/configs/${{ inputs.extra_config }}" >> .config
+          if [ "$EXTRA_CONFIG" != "none" ]; then
+            cat "pon-build/configs/$EXTRA_CONFIG" >> .config
           fi
           bash pon-build/scripts/set-build-version.sh .config
           make defconfig
@@ -135,7 +152,9 @@ jobs:
           retention-days: 30
 
       - name: 发布 Release
-        if: github.event.inputs.release_type != 'none'
+        # push 事件下 github.event.inputs 为 null, null != 'none' 恒为真 ->
+        # 会误发 Release。必须同时限定事件类型。
+        if: github.event_name == 'workflow_dispatch' && inputs.release_type != 'none'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.ver.outputs.tag }}
