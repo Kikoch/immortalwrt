@@ -146,8 +146,11 @@ jobs:
           fi
           if ! bash pon-build/scripts/check-config.sh > check-config.log 2>&1; then
             cat check-config.log
+            # 全量塞进 annotation: run #4 只贴尾 25 行, 把开头的 FATAL 截掉了,
+            # 明明所有包都 OK 却仍判失败, 看不到根因。脚本输出约 30 行, 远小于
+            # annotation 的 65535 字符上限。
             printf '::error::check-config 失败:: %s\n' \
-              "$(tail -25 check-config.log | sed ':a;N;$!ba;s/\n/%0A/g')"
+              "$(sed ':a;N;$!ba;s/\n/%0A/g' check-config.log)"
             exit 1
           fi
           cat check-config.log

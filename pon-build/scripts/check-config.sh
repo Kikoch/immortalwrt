@@ -20,8 +20,13 @@ if grep -q '^CONFIG_TARGET_MULTI_PROFILE=y' "$CONFIG"; then
 	bad "CONFIG_TARGET_MULTI_PROFILE 仍为 y, 会把该 target 下全部设备都编一遍"
 fi
 grep -E '^CONFIG_TARGET.*DEVICE.*=y' "$CONFIG" | sed 's/^/  /' || bad "没有任何设备被选中"
-grep -q "^CONFIG_TARGET_DEVICE_airoha_an7581_DEVICE_${DEVICE}=y" "$CONFIG" \
-	|| bad "目标设备 ${DEVICE} 没有被选中"
+# 上游把 TARGET_DEVICE_* 改成了 menuconfig, defconfig 后未必保留
+# CONFIG_TARGET_DEVICE_... 这个符号; 只要 CONFIG_TARGET_<subtarget>_DEVICE_...
+# 还在就说明 profile 选对了 (per-device rootfs 未启用时 DEVICE_PACKAGES 仍由
+# select DEFAULT_$pkg 进固件, 见 scripts/target-metadata.pl:324)。
+if ! grep -qE "^CONFIG_TARGET_(DEVICE_)?airoha_an7581_DEVICE_${DEVICE}=y" "$CONFIG"; then
+	bad "目标设备 ${DEVICE} 没有被选中 (CONFIG_TARGET_*_DEVICE_${DEVICE} 都不在 .config)"
+fi
 
 echo "=== PON 关键包 (缺一个就起不来 pon0) ==="
 for pkg in kmod-airoha-xpon kmod-airoha-pon-frontend kmod-airoha-en7572 \
