@@ -168,12 +168,15 @@ jobs:
           make -j"$(nproc)" world V=s 2>&1 | tee build.log
           rc=${PIPESTATUS[0]}
           if [ "$rc" -ne 0 ]; then
-            echo "=== make world 失败 (rc=$rc), build.log 末 250 行 ==="
-            tail -n 250 build.log
-            # 末 250 行含 gcc 的 error:/undefined reference/No such file 等真实根因,
-            # 远小于 annotation 65535 字符上限, 匿名也能直接读。
+            echo "=== make world 失败 (rc=$rc), 提取 error 行 ==="
+            # 只抓 error 行 (丢掉满屏 CC/AR 命令噪声)。否则整段塞进 annotation
+            # 会被 GitHub 折叠, 匿名 WebFetch 只抓到折叠前的一句 warning, 真实报错
+            # 永远看不到 (run #10 就是这个坑, tail 250 行全被折叠)。error 行通常
+            # 几十行, 远在 65535 字符内, GitHub 不折叠, WebFetch 能完整读。
+            errs=$(grep -niE "error:|undefined reference|No such file or directory|recipe for target .* failed|Error [0-9]|make\[[0-9]*\]: \*\*\*" build.log | tail -120)
+            echo "$errs"
             printf '::error::make world 失败 (rc=%s):: %s\n' "$rc" \
-              "$(tail -n 250 build.log | sed ':a;N;$!ba;s/\n/%0A/g')"
+              "$(echo "$errs" | sed ':a;N;$!ba;s/\n/%0A/g')"
             exit 1
           fi
 
