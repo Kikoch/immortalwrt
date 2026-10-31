@@ -28,8 +28,12 @@ grep -q "^CONFIG_TARGET_DEVICE_airoha_an7581_DEVICE_${DEVICE}=y" "$CONFIG" \
 	|| bad "目标设备 ${DEVICE} 没有被选中 (新机制下必须选中 TARGET_DEVICE_* 菜单项)"
 
 echo "=== PON 关键包 (缺一个就起不来 pon0) ==="
+# fitblk 是 HIDDEN 包 (Makefile 里 HIDDEN:=1), menuconfig 不可见, 也不能在 .config
+# 里硬 =y —— 它由 nokia_xg-040g-md-ubi 的 DEVICE_PACKAGES += fitblk 自动注入固件。
+# 种子已用 =m + MODULE_DEFAULT_fitblk=y 确保构建, 这里不查它, 否则 defconfig 后
+# 它确实不是 =y, 会制造假阳性失败。
 for pkg in kmod-airoha-xpon kmod-airoha-pon-frontend kmod-airoha-en7572 \
-           airoha-ponctl airoha-pond luci-app-pon airoha-en8811h-firmware fitblk; do
+           airoha-ponctl airoha-pond luci-app-pon airoha-en8811h-firmware; do
 	if grep -q "^CONFIG_PACKAGE_${pkg}=y" "$CONFIG"; then
 		note "OK   ${pkg}"
 	else
