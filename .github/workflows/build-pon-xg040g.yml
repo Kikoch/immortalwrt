@@ -163,13 +163,17 @@ jobs:
           # 之前是 `make world 2>&1 | tee build.log`, 管道让 make 的失败被 tee 的
           # 退出码吞掉, 编译步骤永远显示 success, image 构建报错却看不到 (run #7 就是这样
           # 被误导成"没产出镜像")。改用 PIPESTATUS 抓真实退出码。
-          make -j"$(nproc)" world 2>&1 | tee build.log
+          # V=s 让 gcc 完整报错行 (error: ...) 留在 build.log, 否则只顶层
+          # "ERROR: target/linux failed to build" 看不到具体哪个文件哪行 (run #9 就是这个坑)。
+          make -j"$(nproc)" world V=s 2>&1 | tee build.log
           rc=${PIPESTATUS[0]}
           if [ "$rc" -ne 0 ]; then
-            echo "=== make world 失败 (rc=$rc), build.log 关键错误 ==="
-            grep -iE "failed to build|Error 1|No rule to make|recipe for target .* failed|ERROR:|make\[[0-9]*\]: \*\*\*" build.log | tail -60
+            echo "=== make world 失败 (rc=$rc), build.log 末 250 行 ==="
+            tail -n 250 build.log
+            # 末 250 行含 gcc 的 error:/undefined reference/No such file 等真实根因,
+            # 远小于 annotation 65535 字符上限, 匿名也能直接读。
             printf '::error::make world 失败 (rc=%s):: %s\n' "$rc" \
-              "$(grep -iE "failed to build|Error 1|No rule to make|recipe for target .* failed|ERROR:|make\[[0-9]*\]: \*\*\*" build.log | tail -40 | sed ':a;N;$!ba;s/\n/%0A/g')"
+              "$(tail -n 250 build.log | sed ':a;N;$!ba;s/\n/%0A/g')"
             exit 1
           fi
 
@@ -178,11 +182,15 @@ jobs:
         run: |
           failed=$(grep -m1 'ERROR:.*failed to build' build.log \
                    | sed 's/.*ERROR: \(.*\) failed to build.*/\1/' || true)
-          if [ -n "$failed" ]; then
+          if [ -n "$failed" ] && [[ "$failed" == package/* ]]; then
             echo "=== 重编 $failed (V=s) ==="
-            make "package/$failed/compile" V=s -j1 2>&1 | tail -120 || true
+            out=$(make "$failed/compile" V=s -j1 2>&1 | tail -120)
+            echo "$out"
+            printf '::error::重编 %s 失败:: %s\n' "$failed" \
+              "$(echo "$out" | sed ':a;N;$!ba;s/\n/%0A/g')"
           else
-            tail -150 build.log || true
+            echo "=== 未能定位单个失败包, build.log 末 150 行 ==="
+            tail -n 150 build.log || true
           fi
 
       - name: 校验产物
