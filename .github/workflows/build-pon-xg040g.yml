@@ -194,6 +194,18 @@ jobs:
             echo "$errs"
             printf '::error::make world 失败 (rc=%s); 缺失模块见上方 annotation, 其余错误见下:: %s\n' "$rc" \
               "$(echo "$errs" | sed ':a;N;$!ba;s/\n/%0A/g')"
+            # 3) 专门捕获内核 syncconfig 交互式提示中止: 6.18 新增的 Kconfig 符号若没在
+            #    kmod 的 KCONFIG 里用 '=n'/取值行护卫, 非交互 CI 下会弹 '(NEW)' 提示,
+            #    导致 scripts/kconfig/Makefile syncconfig Error 1 -> target/linux failed。
+            #    这一条单独发 annotation, 一眼就能看出是"新增符号没护卫"而不是普通编译错。
+            syncf=$(grep -nE "\(NEW\)|syncconfig\] Error|Export .* \[N/y|scripts/kconfig/Makefile.*syncconfig" build.log 2>/dev/null | head -20)
+            if [ -n "$syncf" ]; then
+              echo "=== 内核 syncconfig 交互式提示中止 (6.18 新增符号未用 =n 护卫) ==="
+              echo "$syncf"
+              echo "$syncf" | while IFS= read -r l; do
+                printf '::error::内核 syncconfig 提示中止 (通常 6.18 新增 Kconfig 符号未用 =n/取值护卫): %s\n' "$l"
+              done
+            fi
             exit 1
           fi
 
