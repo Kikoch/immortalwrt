@@ -511,8 +511,14 @@ $(eval $(call KernelPackage,nvme))
 define KernelPackage/scsi-core
   SUBMENU:=$(BLOCK_MENU)
   TITLE:=SCSI device support
+  # 6.18 重构修复: 原 KCONFIG 的 CONFIG_SCSI 是 bool, OpenWrt 选中本 kmod 时会把它
+  # 强制置 =y -> 它 select 的 CONFIG_SCSI_MOD 也跟着 =y (直接编进内核) -> 不再产生
+  # scsi_mod.ko -> 打包阶段报 "ERROR: module 'scsi_mod.ko' is missing" (run #13 根因)。
+  # 改用 tristate 的 CONFIG_SCSI_MOD 作为启用符号: OpenWrt 把它强制置 =m -> scsi_mod
+  # 编成模块 -> scsi_mod.ko 正常产出。scsi_common.ko / sd_mod.ko 仍由 CONFIG_SCSI_COMMON
+  # / CONFIG_BLK_DEV_SD 编成模块。
   KCONFIG:= \
-	CONFIG_SCSI \
+	CONFIG_SCSI_MOD \
 	CONFIG_SCSI_COMMON \
 	CONFIG_BLK_DEV_SD
   FILES:= \

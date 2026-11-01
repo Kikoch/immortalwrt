@@ -165,7 +165,10 @@ jobs:
           # 被误导成"没产出镜像")。改用 PIPESTATUS 抓真实退出码。
           # V=s 让 gcc 完整报错行 (error: ...) 留在 build.log, 否则只顶层
           # "ERROR: target/linux failed to build" 看不到具体哪个文件哪行 (run #9 就是这个坑)。
-          make -j"$(nproc)" world V=s 2>&1 | tee build.log
+          # run #14 起加 -k: 6.18 旧 Kconfig 符号引发的 kmod 缺失是连锁的 (netfilter ->
+          # SCSI -> ...), 打包阶段某个 kmod 缺 .ko 不再立刻中止, 让 make 把"所有"缺失
+          # 模块一次性全跑出来; failure 步骤会把完整清单去重聚合成 annotation, 争取一次修完。
+          make -k -j"$(nproc)" world V=s 2>&1 | tee build.log
           rc=${PIPESTATUS[0]}
           if [ "$rc" -ne 0 ]; then
             echo "=== make world 失败 (rc=$rc), 提取 error 行 ==="
@@ -174,7 +177,9 @@ jobs:
             # 标 (ignored) 的 Error), 否则这些噪声会把真正的第一个报错挤出 tail 窗口
             # (run #12 就因为缺 .ko 的打包错误全挤在 tail, 真正的编译/配置根因被截掉)。
             # 用 head 而非 tail: 我们要的是"第一个"致命错误, 不是最后一批打包错误。
-            errs=$(grep -niE "error:|undefined reference|No such file or directory|recipe for target .* failed|Error [0-9]|make\[[0-9]*\]: \*\*\*" build.log \
+            # 新增 "module is missing": 打包阶段缺 .ko 的直接报错, 配合 -k 把每个缺失
+            # 模块都列出来 (failure 步骤再做去重汇总)。
+            errs=$(grep -niE "error:|module is missing|undefined reference|No such file or directory|recipe for target .* failed|Error [0-9]|make\[[0-9]*\]: \*\*\*" build.log \
               | grep -viE "ninja: No such file|install-info: No such file|curl: \(22\)|manifest: No such file|abort-due-to-no-makefile|Error [0-9] \(ignored\)" \
               | head -80)
             echo "$errs"
@@ -186,22 +191,16 @@ jobs:
       - name: 失败时给详细日志
         if: failure()
         run: |
-          echo "=== resolved .config: 缺失的 netfilter 模块对应 Kconfig 符号 ==="
-          grep -nE "CONFIG_NF_FLOW_TABLE|CONFIG_NF_CONNTRACK=|CONFIG_NETFILTER_NETLINK|CONFIG_NF_TPROXY|CONFIG_NF_CT_NETLINK|CONFIG_NFT_BRIDGE|CONFIG_NF_CONNTRACK_BRIDGE|CONFIG_NF_TABLES=|CONFIG_BRIDGE=" .config 2>/dev/null || echo "(.config 不存在)"
+          echo "=== 全部缺失的 .ko 模块 (make -k 攒出的完整清单, 去重, 用于一次性修复) ==="
+          grep -oE "ERROR: module '[^']+' is missing" build.log 2>/dev/null | sed -E "s/ERROR: module '([^']+)' is missing/\1/" | sort -u | head -200 || true
+          echo "(若上面为空但构建仍失败, 看下方 build.log 末段)"
+          echo
+          echo "=== resolved .config: 相关 Kconfig 符号状态 ==="
+          grep -nE "CONFIG_NF_FLOW_TABLE|CONFIG_NF_CONNTRACK=|CONFIG_NETFILTER_NETLINK|CONFIG_NF_TPROXY|CONFIG_NF_CT_NETLINK|CONFIG_NFT_BRIDGE|CONFIG_NF_CONNTRACK_BRIDGE|CONFIG_NF_TABLES=|CONFIG_BRIDGE=|CONFIG_SCSI|CONFIG_SCSI_MOD|CONFIG_BLK_DEV_SD|CONFIG_SCSI_COMMON" .config 2>/dev/null || echo "(.config 不存在)"
           echo "=== build_dir 里是否真的产出了这些 .ko (定位是配置裁掉还是路径错) ==="
-          find build_dir -name "nf_flow_table*.ko" -o -name "nf_tproxy*.ko" -o -name "nf_conntrack_netlink*.ko" -o -name "nft_*bridge*.ko" -o -name "nf_conntrack_bridge*.ko" 2>/dev/null | head || echo "(未找到任何相关 .ko)"
-          failed=$(grep -m1 'ERROR:.*failed to build' build.log \
-                   | sed 's/.*ERROR: \(.*\) failed to build.*/\1/' || true)
-          if [ -n "$failed" ] && [[ "$failed" == package/* ]]; then
-            echo "=== 重编 $failed (V=s) ==="
-            out=$(make "$failed/compile" V=s -j1 2>&1 | tail -120)
-            echo "$out"
-            printf '::error::重编 %s 失败:: %s\n' "$failed" \
-              "$(echo "$out" | sed ':a;N;$!ba;s/\n/%0A/g')"
-          else
-            echo "=== 未能定位单个失败包, build.log 末 150 行 ==="
-            tail -n 150 build.log || true
-          fi
+          find build_dir -name "nf_flow_table*.ko" -o -name "nf_tproxy*.ko" -o -name "nf_conntrack_netlink*.ko" -o -name "nft_*bridge*.ko" -o -name "nf_conntrack_bridge*.ko" -o -name "scsi_mod*.ko" -o -name "scsi_common*.ko" -o -name "sd_mod*.ko" 2>/dev/null | head || echo "(未找到任何相关 .ko)"
+          echo "=== build.log 末 200 行 (总体上下文) ==="
+          tail -n 200 build.log || true
 
       - name: 校验产物
         run: |
