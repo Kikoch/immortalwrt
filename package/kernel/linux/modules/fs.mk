@@ -201,6 +201,7 @@ define KernelPackage/fs-exfat
   TITLE:=exFAT filesystem support
   KCONFIG:= \
 	CONFIG_EXFAT_FS \
+	CONFIG_EXFAT_DEFAULT_IOCHARSET="utf8" \
   FILES:= $(LINUX_DIR)/fs/exfat/exfat.ko
   AUTOLOAD:=$(call AutoLoad,30,exfat,1)
   DEPENDS:=+kmod-nls-base

@@ -1574,6 +1574,7 @@ define KernelPackage/inet-diag
 	CONFIG_INET_DIAG \
 	CONFIG_INET_TCP_DIAG \
 	CONFIG_INET_UDP_DIAG \
+	CONFIG_INET_DIAG_DESTROY=n \
   FILES:= \
 	$(LINUX_DIR)/net/ipv4/inet_diag.ko \
 	$(LINUX_DIR)/net/ipv4/tcp_diag.ko \
@@ -1632,6 +1633,7 @@ define KernelPackage/wireguard
 	  +IPV6:kmod-udptunnel6
   KCONFIG:= \
 	  CONFIG_WIREGUARD \
+	  CONFIG_WIREGUARD_DEBUG=n \
   FILES:=$(LINUX_DIR)/drivers/net/wireguard/wireguard.ko
   AUTOLOAD:=$(call AutoProbe,wireguard)
 endef
