@@ -735,8 +735,6 @@ define KernelPackage/zram
   KCONFIG:= \
 	CONFIG_ZSMALLOC \
 	CONFIG_ZRAM \
-	CONFIG_ZRAM_WRITEBACK=n \
-	CONFIG_ZSMALLOC_STAT=n
   FILES:= \
 	$(LINUX_DIR)/mm/zsmalloc.ko \
 	$(LINUX_DIR)/drivers/block/zram/zram.ko

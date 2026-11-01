@@ -171,19 +171,28 @@ jobs:
           make -k -j"$(nproc)" world V=s 2>&1 | tee build.log
           rc=${PIPESTATUS[0]}
           if [ "$rc" -ne 0 ]; then
-            echo "=== make world 失败 (rc=$rc), 提取 error 行 ==="
-            # 只抓 error 行 (丢掉满屏 CC/AR 命令噪声)。过滤掉无害的 host-tool 噪声
-            # (ninja 缺失 / install-info / curl 403-404 / elfutils manifest / 被 make
-            # 标 (ignored) 的 Error), 否则这些噪声会把真正的第一个报错挤出 tail 窗口
-            # (run #12 就因为缺 .ko 的打包错误全挤在 tail, 真正的编译/配置根因被截掉)。
-            # 用 head 而非 tail: 我们要的是"第一个"致命错误, 不是最后一批打包错误。
-            # 新增 "module is missing": 打包阶段缺 .ko 的直接报错, 配合 -k 把每个缺失
-            # 模块都列出来 (failure 步骤再做去重汇总)。
-            errs=$(grep -niE "error:|module is missing|undefined reference|No such file or directory|recipe for target .* failed|Error [0-9]|make\[[0-9]*\]: \*\*\*" build.log \
+            # 1) 优先把"打包阶段缺失的 .ko"作为 annotation 直接打出。这是 6.18 旧 Kconfig
+            #    符号引发的真问题, 必须出现在可匿名阅读的 annotation 里, 不能被满屏的
+            #    host-tool 噪声 (bison/help2man/elfutils...) 淹没。head -80 会把它们挤掉,
+            #    所以这里单独抽出来、去重、逐条发 ::error:: (限 100 条避免 annotation 超限)。
+            miss=$(grep -oE "ERROR: module '[^']+' is missing" build.log 2>/dev/null \
+              | sed -E "s/ERROR: module '([^']+)' is missing/\1/" | sort -u)
+            if [ -n "$miss" ]; then
+              echo "=== 缺失的 .ko 模块 (去重, 共 $(echo "$miss" | wc -l) 个) ==="
+              echo "$miss"
+              echo "$miss" | head -100 | while IFS= read -r m; do
+                printf '::error::缺失内核模块 .ko: %s (kmod 打包失败, 通常是 6.18 旧 Kconfig 符号未更新)\n' "$m"
+              done
+            fi
+            # 2) 其余编译/配置错误 (过滤无害 host-tool 噪声), 取末 80 行进 annotation。
+            #    不再 head -80: 早期 host-tool 噪声会挤掉真正的配置/编译根因。
+            errs=$(grep -niE "error:|undefined reference|No such file or directory|recipe for target .* failed|make\[[0-9]*\]: \*\*\*" build.log \
               | grep -viE "ninja: No such file|install-info: No such file|curl: \(22\)|manifest: No such file|abort-due-to-no-makefile|Error [0-9] \(ignored\)" \
-              | head -80)
+              | grep -viE "module is missing" \
+              | tail -80)
+            echo "=== 其它错误 (末 80 行) ==="
             echo "$errs"
-            printf '::error::make world 失败 (rc=%s):: %s\n' "$rc" \
+            printf '::error::make world 失败 (rc=%s); 缺失模块见上方 annotation, 其余错误见下:: %s\n' "$rc" \
               "$(echo "$errs" | sed ':a;N;$!ba;s/\n/%0A/g')"
             exit 1
           fi
@@ -192,7 +201,12 @@ jobs:
         if: failure()
         run: |
           echo "=== 全部缺失的 .ko 模块 (make -k 攒出的完整清单, 去重, 用于一次性修复) ==="
-          grep -oE "ERROR: module '[^']+' is missing" build.log 2>/dev/null | sed -E "s/ERROR: module '([^']+)' is missing/\1/" | sort -u | head -200 || true
+          miss=$(grep -oE "ERROR: module '[^']+' is missing" build.log 2>/dev/null | sed -E "s/ERROR: module '([^']+)' is missing/\1/" | sort -u)
+          echo "$miss" | head -200 || true
+          # 同样逐条发 ::error::, 保证匿名也能在 annotation 里读到完整缺失清单
+          echo "$miss" | head -100 | while IFS= read -r m; do
+            printf '::error::(failure) 缺失内核模块 .ko: %s\n' "$m"
+          done
           echo "(若上面为空但构建仍失败, 看下方 build.log 末段)"
           echo
           echo "=== resolved .config: 相关 Kconfig 符号状态 ==="

@@ -1850,7 +1850,6 @@ define KernelPackage/usb3
 	+TARGET_mediatek:kmod-usb-xhci-mtk
   KCONFIG:= \
 	CONFIG_USB_PCI=y \
-	CONFIG_USB_XHCI_PCI \
 	CONFIG_USB_XHCI_PLATFORM
   FILES:= \
 	$(XHCI_FILES)

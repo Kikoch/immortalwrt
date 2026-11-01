@@ -1356,12 +1356,10 @@ define KernelPackage/nft-offload
   TITLE:=Netfilter nf_tables routing/NAT offload support
   DEPENDS:=@IPV6 +kmod-nf-flow +kmod-nft-nat
   KCONFIG:= \
-	CONFIG_NF_FLOW_TABLE_INET \
 	CONFIG_NFT_FLOW_OFFLOAD
   FILES:= \
-	$(LINUX_DIR)/net/netfilter/nf_flow_table_inet.ko \
 	$(LINUX_DIR)/net/netfilter/nft_flow_offload.ko
-  AUTOLOAD:=$(call AutoProbe,nf_flow_table_inet nft_flow_offload)
+  AUTOLOAD:=$(call AutoProbe,nft_flow_offload)
 endef
 
 $(eval $(call KernelPackage,nft-offload))
