@@ -41,6 +41,9 @@ on:
     paths:
       - "target/linux/airoha/**"
       - "package/airoha-pon/**"
+      # kmod .mk 改动 (package/kernel/linux/modules/*.mk) 也属于包配置,
+      # 必须触发云编译, 否则改了内核模块却不会自动 build (run #17 前踩过坑)
+      - "package/kernel/linux/modules/**"
       - "pon-build/configs/**"
       - "pon-build/scripts/**"
       - "pon-build/feeds.conf"
