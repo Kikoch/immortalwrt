@@ -1574,6 +1574,7 @@ define KernelPackage/inet-diag
 	CONFIG_INET_DIAG \
 	CONFIG_INET_TCP_DIAG \
 	CONFIG_INET_UDP_DIAG \
+	CONFIG_INET_RAW_DIAG \
 	CONFIG_INET_DIAG_DESTROY=n \
   FILES:= \
 	$(LINUX_DIR)/net/ipv4/inet_diag.ko \
