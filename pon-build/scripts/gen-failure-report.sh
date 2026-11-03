@@ -41,15 +41,16 @@ syncf=$(grep -nE "\(NEW\)|syncconfig\] Error|scripts/kconfig/Makefile.*syncconfi
   echo
   echo '```'
   for pair in \
-    "scsi_mod.ko|kmod-scsi-core|CONFIG_SCSI_MOD" \
+    "scsi_mod.ko|kmod-scsi-core|CONFIG_SCSI" \
     "usbcore.ko|kmod-usb-core|CONFIG_USB" \
     "usb-common.ko|kmod-usb-common|CONFIG_USB_COMMON" \
     "ledtrig-usbport.ko|kmod-usb-ledtrig-usbport|CONFIG_USB_LEDS_TRIGGER_USBPORT" \
     "userspace-consumer.ko|kmod-regulator-userspace-consumer|CONFIG_REGULATOR_USERSPACE_CONSUMER"; do
     ko="${pair%%|*}"; rest="${pair#*|*}"; kmod="${rest%%|*}"; sym="${rest#*|*}"
+    kerncfg=$(find build_dir -path "*linux-*/.config" 2>/dev/null | head -1)
     ksel=$(grep -E "^CONFIG_PACKAGE_${kmod}=" .config 2>/dev/null | head -1)
-    sval=$(grep -E "^${sym}=" .config 2>/dev/null | head -1)
-    [ -z "$sval" ] && sval=$(grep -E "^# ${sym} is not set" .config 2>/dev/null | head -1)
+    sval=$(grep -E "^${sym}=" "$kerncfg" 2>/dev/null | head -1)
+    [ -z "$sval" ] && sval=$(grep -E "^# ${sym} is not set" "$kerncfg" 2>/dev/null | head -1)
     built=$(find build_dir -name "$ko" 2>/dev/null | head -1)
     printf '%-26s kmod=%-34s sym=%-42s built=%s\n' "$ko" "${ksel:-<未选中>}" "${sval:-<无>}" "${built:-NO}"
   done

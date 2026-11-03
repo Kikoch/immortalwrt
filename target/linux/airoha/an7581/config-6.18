@@ -323,12 +323,9 @@ CONFIG_RPS=y
 CONFIG_RWSEM_SPIN_ON_OWNER=y
 CONFIG_SECCOMP=y
 CONFIG_SECCOMP_FILTER=y
-# 6.18 修复: 上游 generic config-6.18 把 CONFIG_SCSI_MOD 设成了 =y (内置), 而本仓库
-# kmod-scsi-core 用 CONFIG_SCSI_MOD 作为启用符号, 期望它 =m 产出 scsi_mod.ko。
-# kconfig.pl 'm+' 合并规则拒绝把已有的 =y 降级成 =m -> scsi_mod 被编进内核 ->
-# kmod 打包阶段报 "ERROR: module 'scsi_mod.ko' is missing" (run #13/#17/#18 根因)。
-# 这里显式 =m 覆盖 generic 的 =y (subtarget 优先级高于 generic), 让 scsi_mod 编成模块。
-CONFIG_SCSI_MOD=m
+# 6.18: scsi_mod.ko 由内核 CONFIG_SCSI (tristate) 经 kmod-scsi-core 的 KCONFIG 驱动为
+# =m 产出 (run #20 修正)。CONFIG_SCSI_MOD 在该内核 drivers/scsi/Makefile 中并不出现,
+# 是无关旧符号, 无需在此覆盖。
 CONFIG_SERIAL_8250_AIROHA=y
 CONFIG_SERIAL_8250_EXTENDED=y
 CONFIG_SERIAL_8250_FSL=y
