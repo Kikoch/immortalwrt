@@ -1,70 +1,69 @@
-# Build failure report — run 19
+# Build failure report — run 20
 
-head_sha: b06134f8aad381b6020b86c50fc86bcad7daf343
-time: 2026-11-03T09:25:55Z
+head_sha: cced758304b44acdca20e904eb645c0eab6efb9b
+time: 2026-11-03T12:21:18Z
 
 ## syncconfig 是否中止 (NEW 提示导致 Error 1)?
 no (仅 (NEW) 提示, 未中止)
 
 ### syncconfig (NEW) 提示行
 ```
-76677:Compile also drivers which will not load (COMPILE_TEST) [N/y/?] (NEW) 
-76678:Compile the kernel with warnings as errors (WERROR) [N/y/?] (NEW) 
-76679:Local version - append to kernel release (LOCALVERSION) [] (NEW) 
-76680:Automatically append version information to the version string (LOCALVERSION_AUTO) [Y/n/?] (NEW) 
-76681:Build ID Salt (BUILD_SALT) [] (NEW) 
-76682:Default init path (DEFAULT_INIT) [] (NEW) 
-76683:Default hostname (DEFAULT_HOSTNAME) [(none)] (NEW) 
-76686:General notification queue (WATCH_QUEUE) [N/y/?] (NEW) 
-76687:Enable process_vm_readv/writev syscalls (CROSS_MEMORY_ATTACH) [Y/n/?] (NEW) 
-76692:Expose irq internals in debugfs (GENERIC_IRQ_DEBUGFS) [N/y/?] (NEW) 
-76697:  1. Periodic timer ticks (constant rate, no dynticks) (HZ_PERIODIC) (NEW)
-76699:  3. Full dynticks system (tickless) (NO_HZ_FULL) (NEW)
-76701:Old Idle dynticks config (NO_HZ) [N/y/?] (NEW) 
-76703:Enable auxiliary POSIX clocks (POSIX_AUX_CLOCKS) [N/y/?] (NEW) 
-76709:  Permanently enable BPF JIT and remove BPF interpreter (BPF_JIT_ALWAYS_ON) [N/y/?] (NEW) 
-76710:Disable unprivileged BPF by default (BPF_UNPRIV_DEFAULT_OFF) [Y/n/?] (NEW) 
-76714:Preload BPF file system with kernel specific program and map iterators (BPF_PRELOAD) [N/y/?] (NEW) 
-76716:  1. No Forced Preemption (Server) (PREEMPT_NONE) (NEW)
-76717:  2. Voluntary Kernel Preemption (Desktop) (PREEMPT_VOLUNTARY) (NEW)
-76719:  4. Scheduler controlled preemption model (PREEMPT_LAZY) (NEW)
-76721:Preemption behaviour defined on boot (PREEMPT_DYNAMIC) [N/y/?] (NEW) 
-76722:Core Scheduling for SMT (SCHED_CORE) [N/y/?] (NEW) 
-76727:> 1. Simple tick based cputime accounting (TICK_CPU_ACCOUNTING) (NEW)
-76728:  2. Full dynticks CPU time accounting (VIRT_CPU_ACCOUNTING_GEN) (NEW)
-76734:  Enable per-task delay accounting (TASK_DELAY_ACCT) [N/y/?] (NEW) 
-76737:Pressure stall information tracking (PSI) [N/y/?] (NEW) 
-76738:CPU isolation (CPU_ISOLATION) [Y/n/?] (NEW) 
-76742:Make expert-level adjustments to RCU configuration (RCU_EXPERT) [N/y/?] (NEW) 
-76745:Enable kernel headers through /sys/kernel/kheaders.tar.xz (IKHEADERS) [N/m/y/?] (NEW) 
-76746:Kernel log buffer size (16 => 64KB, 17 => 128KB) (LOG_BUF_SHIFT) [17] (NEW) 
-76747:CPU kernel log buffer size contribution (13 => 8 KB, 17 => 128KB) (LOG_CPU_MAX_BUF_SHIFT) [12] (NEW) 
-76748:Printk indexing debugfs interface (PRINTK_INDEX) [N/y/?] (NEW) 
-76752:Enable utilization clamping for RT/FAIR tasks (UCLAMP_TASK) [N/y/?] (NEW) 
-76754:  Automatically enable NUMA aware memory/task placement (NUMA_BALANCING_DEFAULT_ENABLED) [Y/n/?] (NEW) 
-76758:Control Group support (CGROUPS) [Y/?] (NEW) y
-76759:  Favor dynamic modification latency reduction by default (CGROUP_FAVOR_DYNMODS) [N/y/?] (NEW) 
-76761:    Legacy cgroup v1 memory controller (MEMCG_V1) [N/y/?] (NEW) 
-76766:  CPU controller (CGROUP_SCHED) [Y/?] (NEW) y
-76767:    Group scheduling for SCHED_OTHER (FAIR_GROUP_SCHED) [Y/?] (NEW) y
-76768:      CPU bandwidth provisioning for FAIR_GROUP_SCHED (CFS_BANDWIDTH) [N/y/?] (NEW) 
+76673:Compile also drivers which will not load (COMPILE_TEST) [N/y/?] (NEW) 
+76674:Compile the kernel with warnings as errors (WERROR) [N/y/?] (NEW) 
+76675:Local version - append to kernel release (LOCALVERSION) [] (NEW) 
+76676:Automatically append version information to the version string (LOCALVERSION_AUTO) [Y/n/?] (NEW) 
+76677:Build ID Salt (BUILD_SALT) [] (NEW) 
+76678:Default init path (DEFAULT_INIT) [] (NEW) 
+76679:Default hostname (DEFAULT_HOSTNAME) [(none)] (NEW) 
+76682:General notification queue (WATCH_QUEUE) [N/y/?] (NEW) 
+76683:Enable process_vm_readv/writev syscalls (CROSS_MEMORY_ATTACH) [Y/n/?] (NEW) 
+76688:Expose irq internals in debugfs (GENERIC_IRQ_DEBUGFS) [N/y/?] (NEW) 
+76693:  1. Periodic timer ticks (constant rate, no dynticks) (HZ_PERIODIC) (NEW)
+76695:  3. Full dynticks system (tickless) (NO_HZ_FULL) (NEW)
+76697:Old Idle dynticks config (NO_HZ) [N/y/?] (NEW) 
+76699:Enable auxiliary POSIX clocks (POSIX_AUX_CLOCKS) [N/y/?] (NEW) 
+76705:  Permanently enable BPF JIT and remove BPF interpreter (BPF_JIT_ALWAYS_ON) [N/y/?] (NEW) 
+76706:Disable unprivileged BPF by default (BPF_UNPRIV_DEFAULT_OFF) [Y/n/?] (NEW) 
+76710:Preload BPF file system with kernel specific program and map iterators (BPF_PRELOAD) [N/y/?] (NEW) 
+76712:  1. No Forced Preemption (Server) (PREEMPT_NONE) (NEW)
+76713:  2. Voluntary Kernel Preemption (Desktop) (PREEMPT_VOLUNTARY) (NEW)
+76715:  4. Scheduler controlled preemption model (PREEMPT_LAZY) (NEW)
+76717:Preemption behaviour defined on boot (PREEMPT_DYNAMIC) [N/y/?] (NEW) 
+76718:Core Scheduling for SMT (SCHED_CORE) [N/y/?] (NEW) 
+76723:> 1. Simple tick based cputime accounting (TICK_CPU_ACCOUNTING) (NEW)
+76724:  2. Full dynticks CPU time accounting (VIRT_CPU_ACCOUNTING_GEN) (NEW)
+76730:  Enable per-task delay accounting (TASK_DELAY_ACCT) [N/y/?] (NEW) 
+76733:Pressure stall information tracking (PSI) [N/y/?] (NEW) 
+76734:CPU isolation (CPU_ISOLATION) [Y/n/?] (NEW) 
+76738:Make expert-level adjustments to RCU configuration (RCU_EXPERT) [N/y/?] (NEW) 
+76741:Enable kernel headers through /sys/kernel/kheaders.tar.xz (IKHEADERS) [N/m/y/?] (NEW) 
+76742:Kernel log buffer size (16 => 64KB, 17 => 128KB) (LOG_BUF_SHIFT) [17] (NEW) 
+76743:CPU kernel log buffer size contribution (13 => 8 KB, 17 => 128KB) (LOG_CPU_MAX_BUF_SHIFT) [12] (NEW) 
+76744:Printk indexing debugfs interface (PRINTK_INDEX) [N/y/?] (NEW) 
+76748:Enable utilization clamping for RT/FAIR tasks (UCLAMP_TASK) [N/y/?] (NEW) 
+76750:  Automatically enable NUMA aware memory/task placement (NUMA_BALANCING_DEFAULT_ENABLED) [Y/n/?] (NEW) 
+76754:Control Group support (CGROUPS) [Y/?] (NEW) y
+76755:  Favor dynamic modification latency reduction by default (CGROUP_FAVOR_DYNMODS) [N/y/?] (NEW) 
+76757:    Legacy cgroup v1 memory controller (MEMCG_V1) [N/y/?] (NEW) 
+76762:  CPU controller (CGROUP_SCHED) [Y/?] (NEW) y
+76763:    Group scheduling for SCHED_OTHER (FAIR_GROUP_SCHED) [Y/?] (NEW) y
+76764:      CPU bandwidth provisioning for FAIR_GROUP_SCHED (CFS_BANDWIDTH) [N/y/?] (NEW) 
 ```
 
 ## 缺失内核模块 .ko (去重, 已剔除 $mod 字面量噪声)
-count: 2
+count: 1
 ```
 $mod
-/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/drivers/scsi/scsi_mod.ko
 ```
 
 ## 5 个重点模块根因定位 (kmod 是否选中 / 符号解析值 / .ko 是否真编出来)
 
 ```
-scsi_mod.ko                kmod=CONFIG_PACKAGE_kmod-scsi-core=y    sym=<无>                                      built=NO
-usbcore.ko                 kmod=CONFIG_PACKAGE_kmod-usb-core=y     sym=<无>                                      built=build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/packages/.pkgdir/kmod-usb-core/lib/modules/6.18.55/usbcore.ko
-usb-common.ko              kmod=CONFIG_PACKAGE_kmod-usb-common=y   sym=<无>                                      built=build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/packages/.pkgdir/kmod-usb-common/lib/modules/6.18.55/usb-common.ko
-ledtrig-usbport.ko         kmod=CONFIG_PACKAGE_kmod-usb-ledtrig-usbport=y sym=<无>                                      built=build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/packages/.pkgdir/kmod-usb-ledtrig-usbport/lib/modules/6.18.55/ledtrig-usbport.ko
-userspace-consumer.ko      kmod=CONFIG_PACKAGE_kmod-regulator-userspace-consumer=y sym=<无>                                      built=build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/packages/.pkgdir/kmod-regulator-userspace-consumer/lib/modules/6.18.55/userspace-consumer.ko
+scsi_mod.ko                kmod=CONFIG_PACKAGE_kmod-scsi-core=y    sym=CONFIG_SCSI=m                              built=build_dir/target-aarch64_cortex-a53_musl/root-airoha/lib/modules/6.18.55/scsi_mod.ko
+usbcore.ko                 kmod=CONFIG_PACKAGE_kmod-usb-core=y     sym=CONFIG_USB=m                               built=build_dir/target-aarch64_cortex-a53_musl/root-airoha/lib/modules/6.18.55/usbcore.ko
+usb-common.ko              kmod=CONFIG_PACKAGE_kmod-usb-common=y   sym=CONFIG_USB_COMMON=m                        built=build_dir/target-aarch64_cortex-a53_musl/root-airoha/lib/modules/6.18.55/usb-common.ko
+ledtrig-usbport.ko         kmod=CONFIG_PACKAGE_kmod-usb-ledtrig-usbport=y sym=CONFIG_USB_LEDS_TRIGGER_USBPORT=m          built=build_dir/target-aarch64_cortex-a53_musl/root-airoha/lib/modules/6.18.55/ledtrig-usbport.ko
+userspace-consumer.ko      kmod=CONFIG_PACKAGE_kmod-regulator-userspace-consumer=y sym=CONFIG_REGULATOR_USERSPACE_CONSUMER=m      built=build_dir/target-aarch64_cortex-a53_musl/root-airoha/lib/modules/6.18.55/userspace-consumer.ko
 ```
 
 解读: built=NO 且 sym==m  => 内核确实编了模块, 但 kmod FILES 路径写错 (6.18 模块搬家)。
@@ -73,153 +72,153 @@ userspace-consumer.ko      kmod=CONFIG_PACKAGE_kmod-regulator-userspace-consumer
 
 ## build.log 末 150 行
 ```
-[1m[92m   Compiling[0m tracing-chrome v0.7.2
-[1m[92m   Compiling[0m toml_edit v0.25.10+spec-1.1.0
-[1m[92m   Compiling[0m sha1 v0.11.0
-[1m[92m   Compiling[0m hmac v0.13.0
-[1m[92m   Compiling[0m rustfix v0.9.6 (/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/host/rustc-1.96.0-src/src/tools/cargo/crates/rustfix)
-[1m[92m   Compiling[0m http v1.4.0
-[1m[92m   Compiling[0m serde_ignored v0.1.14
-[1m[92m   Compiling[0m cargo-platform v0.3.3 (/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/host/rustc-1.96.0-src/src/tools/cargo/crates/cargo-platform)
-[1m[92m   Compiling[0m opener v0.8.4
-[1m[92m   Compiling[0m async-trait v0.1.89
-[1m[92m   Compiling[0m http-auth v0.1.10
-[1m[92m   Compiling[0m rustc-hash v2.1.2
-[1m[92m   Compiling[0m futures-timer v3.0.3
-[1m[92m   Compiling[0m pathdiff v0.2.3
-[1m[92m   Compiling[0m heck v0.5.0
-[1m[92m   Compiling[0m rustc-stable-hash v0.1.2
-[1m[92m   Compiling[0m home v0.5.12
-[1m[92m   Compiling[0m glob v0.3.3
-[1m[92m   Compiling[0m unicase v2.9.0
-[1m[92m   Compiling[0m gix-transport v0.55.1
-[1m[92m   Compiling[0m crates-io v0.40.19 (/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/host/rustc-1.96.0-src/src/tools/cargo/crates/crates-io)
-[1m[92m   Compiling[0m gix-protocol v0.59.0
-[1m[92m   Compiling[0m gix v0.81.0
-[1m[92m   Compiling[0m git2 v0.20.4
-[1m[92m   Compiling[0m git2-curl v0.21.0
-[1m[92m    Finished[0m `release` profile [optimized] target(s) in 6m 30s
-::endgroup::
-Dist cargo-1.96.0-x86_64-unknown-linux-gnu
-	finished in 0.687 seconds
-Dist llvm-tools-1.96.0-x86_64-unknown-linux-gnu
-	finished in 7.765 seconds
-Dist rust-src-1.96.0
-	finished in 0.830 seconds
-Build completed successfully in 1:59:32
-touch /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/host/rustc-1.96.0-src/.built
-( cd /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/host/rustc-1.96.0-src/build/dist ; for targz in *.tar.gz; do /home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/libdeflate-gzip -dc "$targz" | tar -xf - ; done ; find . -mindepth 2 -maxdepth 2 -type f -name install.sh -execdir bash '{}' --prefix=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/host --disable-ldconfig \; ; )
-install: creating uninstall script at /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/host/lib/rustlib/uninstall.sh
-install: installing component 'rust-std-x86_64-unknown-linux-gnu'
-
-    rust std installed.
-
-install: creating uninstall script at /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/host/lib/rustlib/uninstall.sh
-install: installing component 'rust-src'
-
-    rust src installed.
-
-install: creating uninstall script at /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/host/lib/rustlib/uninstall.sh
-install: installing component 'build-manifest'
-
-    build manifest installed.
-
-install: creating uninstall script at /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/host/lib/rustlib/uninstall.sh
-install: installing component 'rust-std-aarch64-unknown-linux-musl'
-
-    rust std installed.
-
-install: creating uninstall script at /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/host/lib/rustlib/uninstall.sh
-install: installing component 'llvm-tools-preview'
-
-    llvm tools installed.
-
-install: creating uninstall script at /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/host/lib/rustlib/uninstall.sh
-install: installing component 'rustc'
-
-    rustc installed.
-
-install: creating uninstall script at /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/host/lib/rustlib/uninstall.sh
-install: installing component 'cargo'
-
-    cargo installed.
-
-find /home/runner/work/immortalwrt/immortalwrt/staging_dir/host/lib -name '*.la' | xargs -r rm -f;
-mkdir -p /home/runner/work/immortalwrt/immortalwrt/staging_dir/hostpkg/stamp
-touch /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/host/rustc-1.96.0-src/.built
-touch /home/runner/work/immortalwrt/immortalwrt/staging_dir/hostpkg/stamp/.rust_installed 
-make[3]: Leaving directory '/home/runner/work/immortalwrt/immortalwrt/feeds/packages/lang/rust'
-time: package/feeds/packages/rust/host-compile#21399.33#1603.55#7233.96
-make[3]: Entering directory '/home/runner/work/immortalwrt/immortalwrt/package/airoha-pon/airoha-ponctl'
-touch /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.prepared_91852ef0c44acf38ba30a5d11c1ae3da_6664517399ebbbc92a37c5bb081b5c53_check
-mkdir -p /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0
-cp -fpR ./src/Cargo.toml ./src/Cargo.lock /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/
-cp -fpR ./src/src /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/
-touch /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.prepared_91852ef0c44acf38ba30a5d11c1ae3da_6664517399ebbbc92a37c5bb081b5c53
-rm -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.configured_*
-rm -f /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/stamp/.airoha-ponctl_installed
-(cd /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/./; if [ -x ./configure ]; then find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ -name config.guess | xargs -r chmod u+w; find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ -name config.guess | xargs -r -n1 cp --remove-destination /home/runner/work/immortalwrt/immortalwrt/scripts/config.guess; find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ -name config.sub | xargs -r chmod u+w; find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ -name config.sub | xargs -r -n1 cp --remove-destination /home/runner/work/immortalwrt/immortalwrt/scripts/config.sub; AR="aarch64-openwrt-linux-musl-gcc-ar" AS="ccache aarch64-openwrt-linux-musl-gcc -c -Os -pipe -mcpu=cortex-a53 -fno-caller-saves -fno-plt -fhonour-copts -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0=airoha-ponctl-0.2.0 -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl=staging_dir/target-aarch64_cortex-a53_musl -Wl,-z,max-page-size=4096 -Wformat -Werror=format-security -fstack-protector -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs" LD="aarch64-openwrt-linux-musl-ld.bfd" NM="aarch64-openwrt-linux-musl-gcc-nm" CC="ccache aarch64-openwrt-linux-musl-gcc" GCC="ccache aarch64-openwrt-linux-musl-gcc" CXX="ccache aarch64-openwrt-linux-musl-g++" RANLIB="aarch64-openwrt-linux-musl-gcc-ranlib" STRIP=aarch64-openwrt-linux-musl-strip OBJCOPY=aarch64-openwrt-linux-musl-objcopy OBJDUMP=aarch64-openwrt-linux-musl-objdump SIZE=aarch64-openwrt-linux-musl-size CFLAGS="-Os -pipe -mcpu=cortex-a53 -fno-caller-saves -fno-plt -fhonour-copts -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0=airoha-ponctl-0.2.0 -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl=staging_dir/target-aarch64_cortex-a53_musl -Wl,-z,max-page-size=4096 -Wformat -Werror=format-security -fstack-protector -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs " CXXFLAGS="-Os -pipe -mcpu=cortex-a53 -fno-caller-saves -fno-plt -fhonour-copts -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0=airoha-ponctl-0.2.0 -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl=staging_dir/target-aarch64_cortex-a53_musl -Wl,-z,max-page-size=4096 -Wformat -Werror=format-security -fstack-protector -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs " CPPFLAGS="-I/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl/usr/include -I/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl/include -I/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl/include/fortify " LDFLAGS="-L/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl/usr/lib -L/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl/lib -fuse-ld=bfd -zmax-page-size=4096 -znow -zrelro -zpack-relative-relocs "   ./configure --target=aarch64-openwrt-linux --host=aarch64-openwrt-linux --build=x86_64-pc-linux-gnu --disable-dependency-tracking --program-prefix="" --program-suffix="" --prefix=/usr --exec-prefix=/usr --bindir=/usr/bin --sbindir=/usr/sbin --libexecdir=/usr/lib --sysconfdir=/etc --datadir=/usr/share --localstatedir=/var --mandir=/usr/man --infodir=/usr/info --disable-nls  ; fi; )
-touch /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.configured_68b329da9893e34099c7d8ad5cb9c940
-rm -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.built
-touch /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.built_check
-CARGO_BUILD_TARGET=aarch64-unknown-linux-musl CARGO_HOME=/home/runner/work/immortalwrt/immortalwrt/dl/cargo CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 CARGO_PROFILE_RELEASE_DEBUG=false CARGO_PROFILE_RELEASE_DEBUG_ASSERTIONS=false CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_OPT_LEVEL=z CARGO_PROFILE_RELEASE_OVERFLOW_CHECKS=true CARGO_PROFILE_RELEASE_PANIC=unwind CARGO_PROFILE_RELEASE_RPATH=false CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER=aarch64-openwrt-linux-musl-gcc RUSTFLAGS="-Ctarget-feature=-crt-static -lssp_nonshared  -Clink-arg=-fuse-ld=bfd" TARGET_CC=aarch64-openwrt-linux-musl-gcc TARGET_CFLAGS="-Os -pipe -mcpu=cortex-a53 -fno-caller-saves -fno-plt -fhonour-copts -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0=airoha-ponctl-0.2.0 -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl=staging_dir/target-aarch64_cortex-a53_musl -Wl,-z,max-page-size=4096 -Wformat -Werror=format-security -fstack-protector -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro -Wl,-z,pack-relative-relocs -mno-outline-atomics" CC=/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/gcc MAKEFLAGS="--jobserver-auth=3,4 " cargo install -v --profile release  --root /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-install --path "/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/."  --locked 
-  Installing airoha-ponctl v0.2.0 (/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0)
-   Compiling airoha-ponctl v0.2.0 (/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0)
-     Running `rustc --crate-name ponctl --edition=2021 src/main.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --crate-type bin --emit=dep-info,link -C opt-level=z -C lto -C codegen-units=1 -C overflow-checks=on --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=4542ccb197a5bb7b -C extra-filename=-47192ca873e17a76 --out-dir /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/target/aarch64-unknown-linux-musl/release/deps --target aarch64-unknown-linux-musl -C linker=aarch64-openwrt-linux-musl-gcc -C strip=symbols -L dependency=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/target/aarch64-unknown-linux-musl/release/deps -L dependency=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/target/release/deps -Ctarget-feature=-crt-static -lssp_nonshared -Clink-arg=-fuse-ld=bfd`
-    Finished `release` profile [optimized] target(s) in 4.29s
-  Installing /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-install/bin/ponctl
-   Installed package `airoha-ponctl v0.2.0 (/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0)` (executable `ponctl`)
-warning: be sure to add `/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-install/bin` to your PATH to be able to run the installed binaries
-touch /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.built
-rm -rf /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl
-mkdir -p /home/runner/work/immortalwrt/immortalwrt/bin/targets/airoha/an7581/packages /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/pkginfo
-install -d -m0755 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/usr/sbin
-install -m0755 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-install/bin/ponctl /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/usr/sbin/
-install -d -m0755 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/etc/config
-install -m0600 ./files/pon.config /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/etc/config/pon
-chmod 0600 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/etc/config/pon
-install -d -m0755 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/etc/init.d
-install -m0755 ./files/pon.init /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/etc/init.d/pon
-find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl -name '.svn' -o -name '.#*' -o -name '*~'| xargs -r rm -rf
-export CROSS="aarch64-openwrt-linux-musl-"  NO_RENAME=1 ; NM="aarch64-openwrt-linux-musl-nm" STRIP="/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/sstrip -z" STRIP_KMOD="/home/runner/work/immortalwrt/immortalwrt/scripts/strip-kmod.sh" PATCHELF="/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/patchelf" /home/runner/work/immortalwrt/immortalwrt/scripts/rstrip.sh /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl
-rstrip.sh: /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/usr/sbin/ponctl: executable
-install -d -m0755 /home/runner/work/immortalwrt/immortalwrt/bin/packages/aarch64_cortex-a53/base
-mkdir -p /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/
-mkdir -p /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/lib/apk/packages/
-(cd /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl; echo "$V_Package_airoha_ponctl_conffiles" > conffiles; )
-( echo "#!/bin/sh"; echo "[ \"\${IPKG_NO_SCRIPT}\" = \"1\" ] && exit 0"; echo "[ -s "\${IPKG_INSTROOT}/lib/functions.sh" ] || exit 0"; echo ". \${IPKG_INSTROOT}/lib/functions.sh"; echo 'export root="${IPKG_INSTROOT}"'; echo 'export pkgname="airoha-ponctl"'; echo "add_group_and_user"; echo "default_postinst"; [ ! -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/postinst-pkg ] || sed '/^\s*#!/d' "/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/postinst-pkg"; ) > /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/post-install;
-( echo "#!/bin/sh"; echo 'export PKG_UPGRADE=1'; [ ! -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/post-install ] || sed '/^\s*#!/d' "/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/post-install"; ) > /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/post-upgrade;
-( echo "#!/bin/sh"; echo "[ -s "\${IPKG_INSTROOT}/lib/functions.sh" ] || exit 0"; echo ". \${IPKG_INSTROOT}/lib/functions.sh"; echo 'export root="${IPKG_INSTROOT}"'; echo 'export pkgname="airoha-ponctl"'; echo "default_prerm"; [ ! -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/prerm-pkg ] || sed '/^\s*#!/d' "/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/prerm-pkg"; ) > /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/pre-deinstall;
-[ ! -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/postrm ] || sed -zi 's/^\s*#!/#!/' "/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/postrm";
-if [ -n "" ]; then echo  > /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/lib/apk/packages/airoha-ponctl.rusers; fi;
-if [ -n "" ]; then echo  > /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/lib/apk/packages/airoha-ponctl.alternatives; fi;
-(cd /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl && find . -type f,l -printf "/%P\n" | sort > /home/runner/work/immortalwrt/immortalwrt/tmp/airoha-ponctl.list && mv /home/runner/work/immortalwrt/immortalwrt/tmp/airoha-ponctl.list /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/lib/apk/packages/airoha-ponctl.list)
-# Move conffiles to IDIR and build conffiles_static with csums
-if [ -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/conffiles ]; then mv -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/conffiles /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/lib/apk/packages/airoha-ponctl.conffiles; for file in $(cat /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/lib/apk/packages/airoha-ponctl.conffiles); do [ -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/$file ] || continue; csum=$(/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/mkhash sha256 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/$file); echo $file $csum >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/lib/apk/packages/airoha-ponctl.conffiles_static; done; fi
-# Some package (base-files) manually append stuff to conffiles
-# Append stuff from it and delete the CONTROL directory since everything else should be migrated
-if [ -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/CONTROL/conffiles ]; then echo $(IDIR_airoha-ponctl)/CONTROL/conffiles >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/lib/apk/packages/airoha-ponctl.conffiles; for file in $(cat /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/CONTROL/conffiles); do [ -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/$file ] || continue; csum=$(/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/mkhash sha256 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/$file); echo $file $csum >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/lib/apk/packages/airoha-ponctl.conffiles_static; done; rm -rf /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/CONTROL/conffiles; fi
-if [ -z "$(ls -A /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/CONTROL 2>/dev/null)" ]; then rm -rf /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/CONTROL; else echo "CONTROL directory /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl/CONTROL is not empty! This is not right and should be checked!" >&2; exit 1; fi
-SOURCE_DATE_EPOCH=0 /home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/fakeroot /home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/apk mkpkg --info "name:airoha-ponctl" --info "version:0.2.0-r1" --info "tags:openwrt:section=net"  --info "description:Configures PON mode, identity, status and data paths." --info "arch:aarch64_cortex-a53" --info "license:GPL-2.0-only" --info "origin:feeds/base/airoha-pon/airoha-ponctl" --info "url:https://github.com/pbs05/openwrt-pon-userspace/tree/main/airoha-ponctl" --info "maintainer:" --info "provides:airoha-ponctl-any"  --script "post-install:/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/post-install" --script "post-upgrade:/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/post-upgrade" --script "pre-deinstall:/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/apk-aarch64_cortex-a53/airoha-ponctl/pre-deinstall" --info "depends:libc kmod-airoha-xpon" --files "/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-aarch64_cortex-a53/airoha-ponctl" --sign /home/runner/work/immortalwrt/immortalwrt/private-key.pem --output "/home/runner/work/immortalwrt/immortalwrt/bin/packages/aarch64_cortex-a53/base/airoha-ponctl-0.2.0-r1.apk"
-rm -rf /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl.installed /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl
-mkdir -p /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl
-install -d -m0755 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl/usr/sbin
-install -m0755 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/ipkg-install/bin/ponctl /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl/usr/sbin/
-install -d -m0755 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl/etc/config
-install -m0600 ./files/pon.config /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl/etc/config/pon
-chmod 0600 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl/etc/config/pon
-install -d -m0755 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl/etc/init.d
-install -m0755 ./files/pon.init /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl/etc/init.d/pon
-touch /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl.installed
-mkdir -p /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/root-airoha/stamp
-SHELL= flock /home/runner/work/immortalwrt/immortalwrt/tmp/.root-copy.flock -c 'cp -fpR /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/airoha-ponctl-0.2.0/.pkgdir/airoha-ponctl/. /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/root-airoha/'
-touch /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/root-airoha/stamp/.airoha-ponctl_installed
-echo "airoha-ponctl" >> /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/pkginfo/airoha-ponctl.default.install
-make[3]: Leaving directory '/home/runner/work/immortalwrt/immortalwrt/package/airoha-pon/airoha-ponctl'
-time: package/airoha-pon/airoha-ponctl/compile#4.25#0.33#4.66
-make[2]: Target 'package/compile' not remade because of errors.
+Enabling dnsmasq
+Enabling done
+Enabling dropbear
+Enabling firewall
+Enabling fstab
+Enabling gpio_switch
+Enabling iptv
+Enabling led
+Enabling log
+Enabling network
+Enabling odhcpd
+/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/usr/share/openclash/uci.sh: line 2: /lib/functions.sh: No such file or directory
+/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/usr/share/openclash/uci.sh: line 2: /lib/functions.sh: No such file or directory
+/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/usr/share/openclash/openclash_curl.sh: line 2: /usr/share/openclash/log.sh: No such file or directory
+/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/usr/share/openclash/openclash_curl.sh: line 3: /usr/share/openclash/openclash_etag.sh: No such file or directory
+Enabling openclash
+Enabling packet_steering
+Enabling pon
+Enabling rpcd
+Enabling sysctl
+Enabling sysfixtime
+Enabling sysntpd
+Enabling system
+Enabling ubihealthd
+Enabling ucitrack
+Enabling uhttpd
+Enabling umount
+Enabling urandom_seed
+Enabling urngd
+Enabling zram
+rm -rf /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/boot /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/tmp/* /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/lib/apk/db/*.post-install* /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/usr/lib/opkg/info/*.postinst* /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/usr/lib/opkg/lists/* /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/var/lock/*.lock
+find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/ -mindepth 1 -execdir touch -hcd "@1793700053" "{}" +
+touch -hcd "@1793700053" /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha
+rm -rf /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/rootfs-cache-airoha
+mkdir -p /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/rootfs-cache-airoha
+cp -a /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/rootfs-cache-airoha/root
+cp -a /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root.orig-airoha /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/rootfs-cache-airoha/root.orig
+echo 2a0162a30dc89deaa71feaff4cac541687fdef495704d0d53761d0e7289d165d > /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/rootfs-cache-airoha/key
 make[2]: Leaving directory '/home/runner/work/immortalwrt/immortalwrt'
-make[1]: *** [package/Makefile:251: /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/stamp/.package_compile] Error 2
+make[2]: Entering directory '/home/runner/work/immortalwrt/immortalwrt'
+make[3]: Entering directory '/home/runner/work/immortalwrt/immortalwrt/target/linux'
+make[4]: Entering directory '/home/runner/work/immortalwrt/immortalwrt/target/linux/airoha'
+rm -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/init
+{ stamp=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.kbuild_image; key="$(printf '%s' 'make -C /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55 KCFLAGS="-fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl=target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl=staging_dir/target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl=staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl -fno-caller-saves " KAFLAGS="-fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl=target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl=staging_dir/target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl=staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl" HOSTCFLAGS="-O2 -I/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/include -Wall -Wmissing-prototypes -Wstrict-prototypes" CROSS_COMPILE="aarch64-openwrt-linux-musl-" ARCH="arm64" KBUILD_HAVE_NLS=no KBUILD_BUILD_USER="" KBUILD_BUILD_HOST="" KBUILD_BUILD_TIMESTAMP="Tue Nov  3 10:00:53 2026" KBUILD_BUILD_VERSION="0" KBUILD_HOSTLDFLAGS="-L/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/lib" CONFIG_SHELL="bash" V='\'''\''  cmd_syscalls=  CC="ccache aarch64-openwrt-linux-musl-gcc" KERNELRELEASE=6.18.55  Image dtbs' | /home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/mkhash md5)"; [ "$(cat $stamp 2>/dev/null)" = "$key" ] && [ -z "$(find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55 /home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl/bin  \( -path '/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.*' ! -path '/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config' \) -prune -o ! -type d -newer $stamp -print -quit)" ] || { rm -f $stamp;  make -C /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55 KCFLAGS="-fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl=target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl=staging_dir/target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl=staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl -fno-caller-saves " KAFLAGS="-fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl=target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl=staging_dir/target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl=staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl" HOSTCFLAGS="-O2 -I/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/include -Wall -Wmissing-prototypes -Wstrict-prototypes" CROSS_COMPILE="aarch64-openwrt-linux-musl-" ARCH="arm64" KBUILD_HAVE_NLS=no KBUILD_BUILD_USER="" KBUILD_BUILD_HOST="" KBUILD_BUILD_TIMESTAMP="Tue Nov  3 10:00:53 2026" KBUILD_BUILD_VERSION="0" KBUILD_HOSTLDFLAGS="-L/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/lib" CONFIG_SHELL="bash" V=''  cmd_syscalls=  CC="ccache aarch64-openwrt-linux-musl-gcc" KERNELRELEASE=6.18.55  Image dtbs && echo "$key" > $stamp; }; }
+make[5]: Entering directory '/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55'
+  MODPOST vmlinux.symvers
+make[5]: Leaving directory '/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55'
+cmp -s /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/vmlinux /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/vmlinux.debug || { aarch64-openwrt-linux-musl-objcopy -O binary -R .reginfo -R .notes -R .note -R .comment -R .mdebug -R .note.gnu.build-id -S /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/vmlinux /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/vmlinux; aarch64-openwrt-linux-musl-objcopy -R .reginfo -R .notes -R .note -R .comment -R .mdebug -R .note.gnu.build-id -S /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/vmlinux /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/vmlinux.elf; cp -fpR /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/vmlinux /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/vmlinux.debug;  cp -fpR /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/arch/arm64/boot//Image /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/Image;  }
+SHELL= flock /home/runner/work/immortalwrt/immortalwrt/tmp/.gen-initramfs.flock -c '{   		{ rm -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config.prev; mv /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config.old; 	{ grep -v -e INITRAMFS -e CONFIG_RD_ -e CONFIG_BLK_DEV_INITRD /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config.old > /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config; echo '\''CONFIG_BLK_DEV_INITRD=y'\'' >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config; echo '\''file /init /home/runner/work/immortalwrt/immortalwrt/target/linux/generic/other-files/init 0755 0 0'\'' > /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55.init-cpio-list; echo '\''CONFIG_INITRAMFS_SOURCE="/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55.init-cpio-list /home/runner/work/immortalwrt/immortalwrt/target/linux/generic/image/initramfs-base-files.txt"'\'' >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config; }; echo "# CONFIG_INITRAMFS_PRESERVE_MTIME is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config; echo "CONFIG_INITRAMFS_ROOT_UID=1001" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config; echo "CONFIG_INITRAMFS_ROOT_GID=1001" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;  echo "# CONFIG_INITRAMFS_FORCE is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;  echo "CONFIG_INITRAMFS_COMPRESSION_NONE=y" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;   echo "# CONFIG_INITRAMFS_COMPRESSION_GZIP is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_INITRAMFS_COMPRESSION_BZIP2 is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_INITRAMFS_COMPRESSION_LZMA is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_INITRAMFS_COMPRESSION_LZO is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_INITRAMFS_COMPRESSION_XZ is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_INITRAMFS_COMPRESSION_LZ4 is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_INITRAMFS_COMPRESSION_ZSTD is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;   	  echo "# CONFIG_RD_GZIP is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_RD_BZIP2 is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_RD_LZMA is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_RD_LZO is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_RD_XZ is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_RD_LZ4 is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;     echo "# CONFIG_RD_ZSTD is not set" >> /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config;   }; rm -rf /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/usr/initramfs_data.cpio*;  make -C /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55 KCFLAGS="-fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl=target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl=staging_dir/target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl=staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl -fno-caller-saves " KAFLAGS="-fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl=target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl=staging_dir/target-aarch64_cortex-a53_musl -fmacro-prefix-map=/home/runner/work/immortalwrt/immortalwrt/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl=staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl" HOSTCFLAGS="-O2 -I/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/include -Wall -Wmissing-prototypes -Wstrict-prototypes" CROSS_COMPILE="aarch64-openwrt-linux-musl-" ARCH="arm64" KBUILD_HAVE_NLS=no KBUILD_BUILD_USER="" KBUILD_BUILD_HOST="" KBUILD_BUILD_TIMESTAMP="Tue Nov  3 10:00:53 2026" KBUILD_BUILD_VERSION="0" KBUILD_HOSTLDFLAGS="-L/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/lib" CONFIG_SHELL="bash" V='\'''\''  cmd_syscalls=  CC="ccache aarch64-openwrt-linux-musl-gcc" KERNELRELEASE=6.18.55   Image dtbs; 	cmp -s /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/vmlinux /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/vmlinux-initramfs.debug || { aarch64-openwrt-linux-musl-objcopy -O binary -R .reginfo -R .notes -R .note -R .comment -R .mdebug -R .note.gnu.build-id -S /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/vmlinux /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/vmlinux-initramfs; aarch64-openwrt-linux-musl-objcopy -R .reginfo -R .notes -R .note -R .comment -R .mdebug -R .note.gnu.build-id -S /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/vmlinux /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/vmlinux-initramfs.elf; cp -fpR /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/vmlinux /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/vmlinux-initramfs.debug;  cp -fpR /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/arch/arm64/boot//Image /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/Image-initramfs;  };  }';
+make[5]: Entering directory '/home/runner/work/immortalwrt/immortalwrt/target/linux/airoha'
+make[5]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
+  SYNC    include/config/auto.conf.cmd
+  GEN     usr/initramfs_data.cpio
+sort: write failed: 'standard output': Broken pipe
+sort: write error
+  COPY    usr/initramfs_inc_data
+  AS      usr/initramfs_data.o
+  AR      usr/built-in.a
+  AR      built-in.a
+  AR      vmlinux.a
+  LD      vmlinux.o
+  MODPOST vmlinux.symvers
+  KSYMS   .tmp_vmlinux0.kallsyms.S
+  AS      .tmp_vmlinux0.kallsyms.o
+  LD      .tmp_vmlinux1
+  NM      .tmp_vmlinux1.syms
+  KSYMS   .tmp_vmlinux1.kallsyms.S
+  AS      .tmp_vmlinux1.kallsyms.o
+  LD      .tmp_vmlinux2
+  NM      .tmp_vmlinux2.syms
+  KSYMS   .tmp_vmlinux2.kallsyms.S
+  AS      .tmp_vmlinux2.kallsyms.o
+  LD      vmlinux.unstripped
+  NM      System.map
+  SORTTAB vmlinux.unstripped
+  OBJCOPY vmlinux
+  GEN     modules.builtin.modinfo
+  GEN     modules.builtin
+  OBJCOPY arch/arm64/boot/Image
+make[5]: Leaving directory '/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55'
+touch /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.image
+{ state="$( ( cd /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha && find . -printf '%P %y %m %U %G %s %l\n' | LC_ALL=C sort && find . -type f -print0 | LC_ALL=C sort -z | xargs -0 -r cat; ) | /home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/mkhash sha256; find /home/runner/work/immortalwrt/immortalwrt/bin/targets/airoha/an7581 -maxdepth 1 -type f ! -name sha256sums ! -name profiles.json ! -name '*.buildinfo' -printf '%f %s\n' 2>/dev/null | LC_ALL=C sort; find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/json_info_files -maxdepth 1 -type f -printf '%f %s\n' 2>/dev/null | LC_ALL=C sort )"; [ "$state" = "$(cat /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/.image_install 2>/dev/null)" ] && [ -z "$(find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581 -maxdepth 1 ! -type d -newer /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/.image_install -print -quit 2>/dev/null; find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55 /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/image /home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin /home/runner/work/immortalwrt/immortalwrt/target/linux/airoha /home/runner/work/immortalwrt/immortalwrt/include /home/runner/work/immortalwrt/immortalwrt/scripts /home/runner/work/immortalwrt/immortalwrt/.config \( -path '/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.*' ! -path '/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/.config' \) -prune -o ! -type d -newer /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/.image_install -print -quit 2>/dev/null)" ] || { rm -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/.image_install; make -C image compile install TARGET_BUILD= && { ( cd /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha && find . -printf '%P %y %m %U %G %s %l\n' | LC_ALL=C sort && find . -type f -print0 | LC_ALL=C sort -z | xargs -0 -r cat; ) | /home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/mkhash sha256; find /home/runner/work/immortalwrt/immortalwrt/bin/targets/airoha/an7581 -maxdepth 1 -type f ! -name sha256sums ! -name profiles.json ! -name '*.buildinfo' -printf '%f %s\n' 2>/dev/null | LC_ALL=C sort; find /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/json_info_files -maxdepth 1 -type f -printf '%f %s\n' 2>/dev/null | LC_ALL=C sort; } > /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/.image_install; }; }
+make[5]: Entering directory '/home/runner/work/immortalwrt/immortalwrt/target/linux/airoha/image'
+make[5]: Nothing to be done for 'compile'.
+aarch64-openwrt-linux-musl-cpp -nostdinc -x assembler-with-cpp  -I/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/arch/arm64/boot/dts -I/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/arch/arm64/boot/dts/include -I/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/include/ -I/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/scripts/dtc/include-prefixes -undef -D__DTS__  -o /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-nokia_xg-040g-md-ubi.dtb.tmp ../dts/an7581-nokia_xg-040g-md-ubi.dts
+rm -rf /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/target-dir-6fea00b3
+cp -fpR /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root.orig-airoha /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/target-dir-6fea00b3
+/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.55/scripts/dtc/dtc -O dtb -i../dts/ -Wno-interrupt_provider -Wno-unique_unit_address -Wno-unit_address_vs_reg -Wno-avoid_unnecessary_addr_size -Wno-alias_paths -Wno-graph_child_address -Wno-simple_bus_reg   -@ -o /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-nokia_xg-040g-md-ubi.dtb /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-nokia_xg-040g-md-ubi.dtb.tmp
+../dts/an7581.dtsi:353.12-355.5: Warning (sound_dai_property): /sound/platform: Missing property '#sound-dai-cells' in node /soc/afe@1fbe2200 or bad phandle (referred from sound-dai[0])
+rm -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-nokia_xg-040g-md-ubi.dtb.tmp
+mkdir -p /home/runner/work/immortalwrt/immortalwrt/bin/targets/airoha/an7581 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/tmp
+IPKG_INSTROOT=/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/target-dir-6fea00b3 /home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/fakeroot /home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/apk --root /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/target-dir-6fea00b3 --keys-dir /home/runner/work/immortalwrt/immortalwrt --no-logfile --preserve-env --no-scripts --repositories-file /dev/null --repository file:///home/runner/work/immortalwrt/immortalwrt/staging_dir/packages/airoha/packages.adb add kmod-gpio-button-hotplug kmod-leds-gpio kmod-phy-airoha-en8811h kmod-regulator-userspace-consumer kmod-usb-ledtrig-usbport kmod-usb3 automount kmod-airoha-en7572 kmod-airoha-xpon airoha-ponctl airoha-pond fitblk
+rm -rf /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/json_info_files
+/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/mksquashfs4 /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/root.squashfs -nopad -noappend -root-owned -comp xz -Xpreset 9 -Xe -Xlc 0 -Xlp 2 -Xpb 2  -b 256k -p '/dev d 755 0 0' -p '/dev/console c 600 0 0 5 1' -no-xattrs -block-readers 4 -small-readers 4
+rm -f /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/nokia_xg-040g-md-ubi-uImage.itb
+cp /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/Image /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/nokia_xg-040g-md-ubi-uImage.itb
+/home/runner/work/immortalwrt/immortalwrt/staging_dir/host/bin/gzip -f -9n -c /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/nokia_xg-040g-md-ubi-uImage.itb  > /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/nokia_xg-040g-md-ubi-uImage.itb.new
+Pseudo file "dev" exists in source filesystem "/home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/root-airoha/dev".
+Ignoring, exclude it (-e/-ef) to override.
+Parallel mksquashfs: Using 4 processors
+Creating 4.0 filesystem on /home/runner/work/immortalwrt/immortalwrt/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/root.squashfs, block size 262144.
+[|                                                             ]    0/1738   0%WARNING: opening file:///home/runner/work/immortalwrt/immortalwrt/staging_dir/packages/airoha/packages.adb: UNTRUSTED signature
+ERROR: unable to select packages:
+  automount (no such package):
+    required by: world[automount]
+  fitblk (no such package):
+    required by: world[fitblk]
+make[5]: *** [/home/runner/work/immortalwrt/immortalwrt/include/image.mk:385: target-dir-6fea00b3] Error 2
+[=============================================================/] 1829/1829 100%
+
+Exportable Squashfs 4.0 filesystem, xz compressed, data block size 262144
+	compressed data, compressed metadata, compressed fragments,
+	no xattrs, compressed ids
+	duplicates are removed
+Filesystem size 18383.32 Kbytes (17.95 Mbytes)
+	31.80% of uncompressed filesystem size (57810.37 Kbytes)
+Inode table size 15898 bytes (15.53 Kbytes)
+	22.44% of uncompressed inode table size (70860 bytes)
+Directory table size 22560 bytes (22.03 Kbytes)
+	48.27% of uncompressed directory table size (46736 bytes)
+Number of duplicate files found 28
+Number of inodes 2124
+Number of files 1614
+Number of fragments 82
+Number of symbolic links 296
+Number of device nodes 1
+Number of fifo nodes 0
+Number of socket nodes 0
+Number of directories 213
+Number of hard-links 0
+Number of ids (unique uids + gids) 1
+Number of uids 1
+	root (0)
+Number of gids 1
+	root (0)
+make[5]: Target 'install' not remade because of errors.
+make[5]: Leaving directory '/home/runner/work/immortalwrt/immortalwrt/target/linux/airoha/image'
+make[4]: *** [Makefile:15: install] Error 2
+make[4]: Leaving directory '/home/runner/work/immortalwrt/immortalwrt/target/linux/airoha'
+make[3]: *** [Makefile:12: install] Error 2
+make[3]: Leaving directory '/home/runner/work/immortalwrt/immortalwrt/target/linux'
+time: target/linux/install#25.57#10.89#22.82
+    ERROR: target/linux failed to build.
+make[2]: *** [target/Makefile:30: target/linux/install] Error 1
+make[2]: Target 'target/install' not remade because of errors.
+make[2]: Leaving directory '/home/runner/work/immortalwrt/immortalwrt'
+make[1]: *** [target/Makefile:26: /home/runner/work/immortalwrt/immortalwrt/staging_dir/target-aarch64_cortex-a53_musl/stamp/.target_install] Error 2
 make[1]: Target 'world' not remade because of errors.
 make[1]: Leaving directory '/home/runner/work/immortalwrt/immortalwrt'
 make: *** [/home/runner/work/immortalwrt/immortalwrt/include/toplevel.mk:268: world] Error 2
