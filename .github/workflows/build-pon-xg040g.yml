@@ -235,37 +235,7 @@ jobs:
         if: failure()
         run: |
           set +e
-          miss=$(grep -oE "ERROR: module '[^']+' is missing" build.log 2>/dev/null | sed -E "s/ERROR: module '([^']+)' is missing/\1/" | sort -u)
-          syncf=$(grep -nE "\(NEW\)|syncconfig\] Error|scripts/kconfig/Makefile.*syncconfig" build.log 2>/dev/null | head -40)
-          {
-            echo "# Build failure report — run ${GITHUB_RUN_NUMBER}"
-            echo
-            echo "head_sha: ${GITHUB_SHA}"
-            echo "time: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            echo
-            echo "## syncconfig 是否中止 (NEW 提示导致 Error 1)?"
-            if echo "$syncf" | grep -q "syncconfig\] Error"; then echo "**YES — syncconfig 中止, 内核模块可能没编出来**"; else echo "no (仅 (NEW) 提示, 未中止)"; fi
-            echo
-            echo "### syncconfig (NEW) 提示行"
-            echo '```'
-            echo "$syncf"
-            echo '```'
-            echo
-            echo "## 缺失内核模块 .ko (完整去重清单)"
-            if [ -n "$miss" ]; then
-              echo "count: $(echo "$miss" | wc -l)"
-              echo '```'
-              echo "$miss"
-              echo '```'
-            else
-              echo "(无 — 不是 .ko 缺失问题)"
-            fi
-            echo
-            echo "## build.log 末 150 行"
-            echo '```'
-            tail -n 150 build.log 2>/dev/null
-            echo '```'
-          } > pon-build/last-failure-report.md
+          bash pon-build/scripts/gen-failure-report.sh
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add pon-build/last-failure-report.md
